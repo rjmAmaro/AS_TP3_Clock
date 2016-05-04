@@ -1,19 +1,27 @@
 package clock;
 
-import java.time.LocalTime;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.JLabel;
 
 import driver.ClockDriver;
 
 public class ClockViewer implements Observer {
 	
-	LocalTime timeMod = LocalTime.of(12, 02, 02);
+	JLabel label;
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("Time: " + ((ClockDriver) o).getTime().toString());
-		((ClockDriver) o).setTime(timeMod);
+		label.setText(((ClockDriver) o).getTime().toString());
+	}
+
+	public JLabel getLabel() {
+		return label;
+	}
+
+	public void setLabel(JLabel label) {
+		this.label = label;
 	}
 	
 }
