@@ -41,12 +41,18 @@ public class TimeoutController implements Observer {
 	
 	public void decrementTimer() {
 		this.timeLeft = this.timeLeft.minus(1, ChronoUnit.SECONDS);
-		panel.getTimeLeftLabel().setText(this.timeLeft.toString());
+		panel.getTimeLeftLabel().setText(getTimeAsString());
 	}
 	
 	public void editTimer(int hour, int minute, int second) {
 		int totalSeconds = hour * 3600 + minute * 60 + second;
 		this.timeLeft = Duration.ofSeconds(totalSeconds);
+		panel.getTimeLeftLabel().setText(getTimeAsString());
+	}
+	
+	public void resetTimer() {
+		timeLeft = Duration.ofSeconds(0);
+		panel.getTimeLeftLabel().setText(getTimeAsString());
 	}
 
 	public TimeoutPanel getPanel() {
@@ -85,4 +91,7 @@ public class TimeoutController implements Observer {
 		return pausedState;
 	}
 
+	public String getTimeAsString() {
+		return this.timeLeft.toString();
+	}
 }

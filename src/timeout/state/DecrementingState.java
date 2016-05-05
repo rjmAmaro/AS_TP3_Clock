@@ -17,7 +17,7 @@ public class DecrementingState implements State {
 
 	@Override
 	public void stop() {
-		this.timeoutController.setTimeLeft(Duration.ofSeconds(0));
+		this.timeoutController.resetTimer();
 		this.timeoutController.setState(timeoutController.getStoppedState());
 	}
 
