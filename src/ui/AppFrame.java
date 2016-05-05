@@ -13,6 +13,9 @@ import ui.timeout.TimeoutPanel;
 
 public class AppFrame extends JFrame {
 	
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 600;
+	
 	private ClockDriver clockDriver;
 	private ClockPanel clockPanel;
 	private AlarmPanel alarmPanel;
@@ -24,14 +27,26 @@ public class AppFrame extends JFrame {
 		this.clockDriver = clockDriver;
 		
 		this.setLayout(new GridLayout(1, 3));
-		this.setSize(400, 300);
+		this.setSize(WIDTH, HEIGHT);
 		this.setVisible(true);
 	}
 	
 	public void buildClockPanel(ClockController clockController) {
 		this.clockPanel = new ClockPanel();
-		this.clockPanel.build(clockDriver, clockController);
-		this.add(clockPanel);
+		this.clockPanel.build(this.clockDriver, clockController);
+		this.add(this.clockPanel);
+	}
+	
+	public void buildAlarmPanel() {
+		this.alarmPanel = new AlarmPanel();
+		this.alarmPanel.build(this.clockDriver);
+		this.add(this.alarmPanel);
+	}
+	
+	public void buildTimeoutPanel() {
+		this.timeoutPanel = new TimeoutPanel();
+		this.timeoutPanel.build(this.clockDriver);
+		this.add(this.timeoutPanel);
 	}
 
 	public ClockController getClockViewer() {

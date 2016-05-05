@@ -15,7 +15,9 @@ public class Application {
 		clockDriver.addObserver(clockViewer);
 		
 		AppFrame appFrame = new AppFrame(clockDriver);
+		appFrame.buildTimeoutPanel();
 		appFrame.buildClockPanel(clockViewer);
+		appFrame.buildAlarmPanel();
 		
 		Thread t = new Thread(clockDriver);
 		t.start();
