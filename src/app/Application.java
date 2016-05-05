@@ -3,7 +3,6 @@ package app;
 import clock.ClockController;
 import driver.ClockDriver;
 import timeout.TimeoutController;
-import timeout.TimeoutManager;
 import ui.AppFrame;
 
 public class Application {
@@ -14,13 +13,11 @@ public class Application {
 		ClockController clockController = new ClockController();
 		clockDriver.addObserver(clockController);
 		
-		TimeoutManager timeoutManager = new TimeoutManager();
 		TimeoutController timeoutController = new TimeoutController();
-		timeoutManager.setTimeoutController(timeoutController);
 		clockDriver.addObserver(timeoutController);
 		
 		AppFrame appFrame = new AppFrame(clockDriver);
-		appFrame.buildTimeoutPanel(timeoutManager);
+		appFrame.buildTimeoutPanel(timeoutController);
 		appFrame.buildClockPanel(clockController);
 		appFrame.buildAlarmPanel();
 		

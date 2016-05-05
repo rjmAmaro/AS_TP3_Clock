@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import timeout.TimeoutManager;
+import timeout.TimeoutController;
 
 public class TimeoutPanel extends JPanel {
 	private static final int BUTTON_WIDTH = 50;
@@ -16,7 +16,7 @@ public class TimeoutPanel extends JPanel {
 	private static final int TEXT_FIELD_WIDTH = 50;
 	private static final int TEXT_FIELD_HEIGHT = 20;
 	
-	private TimeoutManager timeoutManager;
+	private TimeoutController timeoutController;
 
 	private JLabel title = new JLabel("Timeout");
 	private JLabel timeLeftLabel = new JLabel();
@@ -32,14 +32,13 @@ public class TimeoutPanel extends JPanel {
 	public TimeoutPanel() {
 		this.add(title);
 		this.add(timeLeftLabel);
-		this.setVisible(true);
-		
 		this.buildUI();
+		this.setVisible(true);
 	}
 
-	public void build(TimeoutManager timeoutManager) {
-		this.timeoutManager = timeoutManager;
-		this.timeoutManager.getTimeoutController().setTimeLeftLabel(this.timeLeftLabel);
+	public void build(TimeoutController timeoutController) {
+		this.timeoutController = timeoutController;
+		this.timeoutController.setTimeLeftLabel(this.timeLeftLabel);
 	}
 	
 	private void buildUI() {
@@ -57,7 +56,7 @@ public class TimeoutPanel extends JPanel {
 		this.startButton.setVisible(true);
 		
 		this.startButton.addActionListener(e -> {
-			timeoutManager.getTimeoutController().getState().start();;
+			timeoutController.getState().start();;
 		});
 	}
 	
@@ -68,7 +67,7 @@ public class TimeoutPanel extends JPanel {
 		this.stopButton.setVisible(true);
 		
 		this.stopButton.addActionListener(e -> {
-			timeoutManager.getTimeoutController().getState().stop();;
+			timeoutController.getState().stop();;
 		});
 	}
 	
@@ -79,7 +78,7 @@ public class TimeoutPanel extends JPanel {
 		this.pauseButton.setVisible(true);
 		
 		this.pauseButton.addActionListener(e -> {
-			timeoutManager.getTimeoutController().getState().pause();;
+			timeoutController.getState().pause();;
 		});
 	}
 	
@@ -93,7 +92,7 @@ public class TimeoutPanel extends JPanel {
 			int hour = Integer.parseInt(this.hourTextField.getText());
 			int minute = Integer.parseInt(this.minuteTextField.getText());
 			int second = Integer.parseInt(this.secondTextField.getText());
-			timeoutManager.getTimeoutController().getState().edit(hour, minute, second);
+			timeoutController.getState().edit(hour, minute, second);
 		});
 	}
 	

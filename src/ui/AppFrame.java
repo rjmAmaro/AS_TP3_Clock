@@ -3,11 +3,10 @@ package ui;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import clock.ClockController;
 import driver.ClockDriver;
-import timeout.TimeoutManager;
+import timeout.TimeoutController;
 import ui.alarm.AlarmPanel;
 import ui.clock.ClockPanel;
 import ui.timeout.TimeoutPanel;
@@ -44,9 +43,9 @@ public class AppFrame extends JFrame {
 		this.add(this.alarmPanel);
 	}
 	
-	public void buildTimeoutPanel(TimeoutManager timeoutManager) {
+	public void buildTimeoutPanel(TimeoutController timeoutController) {
 		this.timeoutPanel = new TimeoutPanel();
-		this.timeoutPanel.build(timeoutManager);
+		this.timeoutPanel.build(timeoutController);
 		this.add(this.timeoutPanel);
 	}
 
