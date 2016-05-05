@@ -11,10 +11,11 @@ import timeout.state.DecrementingState;
 import timeout.state.PausedState;
 import timeout.state.State;
 import timeout.state.StoppedState;
+import ui.timeout.TimeoutPanel;
 
 public class TimeoutController implements Observer {
 
-	private JLabel timeLeftLabel;
+	private TimeoutPanel panel;
 	private Duration timeLeft;
 	
 	private State stoppedState;
@@ -40,7 +41,7 @@ public class TimeoutController implements Observer {
 	
 	public void decrementTimer() {
 		this.timeLeft = this.timeLeft.minus(1, ChronoUnit.SECONDS);
-		this.timeLeftLabel.setText(this.timeLeft.toString());
+		panel.getTimeLeftLabel().setText(this.timeLeft.toString());
 	}
 	
 	public void editTimer(int hour, int minute, int second) {
@@ -48,12 +49,12 @@ public class TimeoutController implements Observer {
 		this.timeLeft = Duration.ofSeconds(totalSeconds);
 	}
 
-	public JLabel getTimeLeftLabel() {
-		return timeLeftLabel;
+	public TimeoutPanel getPanel() {
+		return this.panel;
 	}
 
-	public void setTimeLeftLabel(JLabel timeLeftLabel) {
-		this.timeLeftLabel = timeLeftLabel;
+	public void setPanel(TimeoutPanel panel) {
+		this.panel = panel;
 	}
 
 	public Duration getTimeLeft() {

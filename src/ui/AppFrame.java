@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -24,10 +25,17 @@ public class AppFrame extends JFrame {
 	private ClockController clockController;
 	
 	public AppFrame(ClockDriver clockDriver) {
+		super("Clock");
 		this.clockDriver = clockDriver;
+	}
+	
+	public void createAndShowGUI() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setLayout(new GridLayout(1, 3));
-		this.setSize(WIDTH, HEIGHT);
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		
+		this.pack();
 		this.setVisible(true);
 	}
 	

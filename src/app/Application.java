@@ -16,14 +16,16 @@ public class Application {
 		TimeoutController timeoutController = new TimeoutController();
 		clockDriver.addObserver(timeoutController);
 		
-		AppFrame appFrame = new AppFrame(clockDriver);
-		appFrame.buildTimeoutPanel(timeoutController);
-		appFrame.buildClockPanel(clockController);
-		appFrame.buildAlarmPanel();
-		
 		Thread t = new Thread(clockDriver);
 		t.start();
-//		alarmManager = new AlarmManager(clockDriver);
+		
+		javax.swing.SwingUtilities.invokeLater(() -> {
+			AppFrame appFrame = new AppFrame(clockDriver);
+			appFrame.createAndShowGUI();
+			appFrame.buildTimeoutPanel(timeoutController);
+			appFrame.buildClockPanel(clockController);
+			appFrame.buildAlarmPanel();
+		});
 	}
 
 }

@@ -38,7 +38,6 @@ public class TimeoutPanel extends JPanel {
 
 	public void build(TimeoutController timeoutController) {
 		this.timeoutController = timeoutController;
-		this.timeoutController.setTimeLeftLabel(this.timeLeftLabel);
 	}
 	
 	private void buildUI() {
@@ -105,6 +104,70 @@ public class TimeoutPanel extends JPanel {
 		
 		secondTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
 		this.add(secondTextField);
+	}
+
+	public JLabel getTimeLeftLabel() {
+		return timeLeftLabel;
+	}
+
+	public void setTimeLeftLabel(JLabel timeLeftLabel) {
+		this.timeLeftLabel = timeLeftLabel;
+	}
+
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public void setStartButton(JButton startButton) {
+		this.startButton = startButton;
+	}
+
+	public JButton getStopButton() {
+		return stopButton;
+	}
+
+	public void setStopButton(JButton stopButton) {
+		this.stopButton = stopButton;
+	}
+
+	public JButton getPauseButton() {
+		return pauseButton;
+	}
+
+	public void setPauseButton(JButton pauseButton) {
+		this.pauseButton = pauseButton;
+	}
+
+	public JButton getEditButton() {
+		return editButton;
+	}
+
+	public void setEditButton(JButton editButton) {
+		this.editButton = editButton;
+	}
+
+	public JTextField getHourTextField() {
+		return hourTextField;
+	}
+
+	public void setHourTextField(JTextField hourTextField) {
+		this.hourTextField = hourTextField;
+	}
+
+	public JTextField getMinuteTextField() {
+		return minuteTextField;
+	}
+
+	public void setMinuteTextField(JTextField minuteTextField) {
+		this.minuteTextField = minuteTextField;
+	}
+
+	public JTextField getSecondTextField() {
+		return secondTextField;
+	}
+
+	public void setSecondTextField(JTextField secondTextField) {
+		this.secondTextField = secondTextField;
 	}
 
 }
