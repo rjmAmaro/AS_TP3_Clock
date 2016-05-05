@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 
 import driver.ClockDriver;
 
-public class ClockViewer implements Observer {
+public class ClockController implements Observer {
 	
 	JLabel label;
 

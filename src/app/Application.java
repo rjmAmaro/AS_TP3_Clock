@@ -1,20 +1,22 @@
 package app;
 
 import alarm.AlarmManager;
-import clock.ClockViewer;
+import clock.ClockController;
 import driver.ClockDriver;
 import ui.AppFrame;
+import ui.clock.ClockPanel;
 
 public class Application {
 
-	private static ClockDriver clockDriver;
-	private static AlarmManager alarmManager;
-
 	public static void main(String[] args) {
-		ClockViewer clockViewer = new ClockViewer();
-		AppFrame f = new AppFrame(clockViewer);
-		clockDriver = new ClockDriver();
+		ClockDriver clockDriver = new ClockDriver();
+		ClockController clockViewer = new ClockController();
+		
 		clockDriver.addObserver(clockViewer);
+		
+		AppFrame appFrame = new AppFrame(clockDriver);
+		appFrame.buildClockPanel(clockViewer);
+		
 		Thread t = new Thread(clockDriver);
 		t.start();
 //		alarmManager = new AlarmManager(clockDriver);
