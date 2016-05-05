@@ -1,5 +1,8 @@
 package ui.timeout;
 
+import java.awt.GridLayout;
+import java.time.temporal.ChronoUnit;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,7 +33,10 @@ public class TimeoutPanel extends JPanel {
 	private JTextField secondTextField = new JTextField();
 
 	public TimeoutPanel() {
+		this.setLayout(new GridLayout(7, 1));
+		title.setHorizontalAlignment(JLabel.CENTER);
 		this.add(title);
+		timeLeftLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.add(timeLeftLabel);
 		this.buildUI();
 		this.setVisible(true);
@@ -38,14 +44,16 @@ public class TimeoutPanel extends JPanel {
 
 	public void build(TimeoutController timeoutController) {
 		this.timeoutController = timeoutController;
+		this.timeoutController.setPanel(this);
+		timeLeftLabel.setText(this.timeoutController.getTimeAsString());
 	}
 	
 	private void buildUI() {
 		buildStartButton();
 		buildStopButton();
 		buildPauseButton();
-		buildEditButton();
 		buildEditableTextFields();
+		buildEditButton();
 	}
 	
 	private void buildStartButton() {
@@ -55,7 +63,7 @@ public class TimeoutPanel extends JPanel {
 		this.startButton.setVisible(true);
 		
 		this.startButton.addActionListener(e -> {
-			timeoutController.getState().start();;
+			timeoutController.getState().start();
 		});
 	}
 	
@@ -66,7 +74,7 @@ public class TimeoutPanel extends JPanel {
 		this.stopButton.setVisible(true);
 		
 		this.stopButton.addActionListener(e -> {
-			timeoutController.getState().stop();;
+			timeoutController.getState().stop();
 		});
 	}
 	
@@ -77,7 +85,7 @@ public class TimeoutPanel extends JPanel {
 		this.pauseButton.setVisible(true);
 		
 		this.pauseButton.addActionListener(e -> {
-			timeoutController.getState().pause();;
+			timeoutController.getState().pause();
 		});
 	}
 	
@@ -89,21 +97,39 @@ public class TimeoutPanel extends JPanel {
 		
 		this.editButton.addActionListener(e -> {
 			int hour = Integer.parseInt(this.hourTextField.getText());
+			hourTextField.setText("0");
 			int minute = Integer.parseInt(this.minuteTextField.getText());
+			minuteTextField.setText("0");
 			int second = Integer.parseInt(this.secondTextField.getText());
+			secondTextField.setText("0");
 			timeoutController.getState().edit(hour, minute, second);
 		});
 	}
 	
 	private void buildEditableTextFields() {
-		hourTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		this.add(hourTextField);
+		JPanel textPanel = new JPanel();
+		textPanel.setLayout(new GridLayout(2, 3));
 		
-		minuteTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		this.add(minuteTextField);
+		JLabel hourLabel = new JLabel("Hours");
+		textPanel.add(hourLabel);
+		JLabel minuteLabel = new JLabel("Minutes");
+		textPanel.add(minuteLabel);
+		JLabel secondLabel = new JLabel("Seconds");
+		textPanel.add(secondLabel);
 		
-		secondTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
-		this.add(secondTextField);
+//		hourTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		hourTextField.setText("0");
+		textPanel.add(hourTextField);
+		
+//		minuteTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		minuteTextField.setText("0");
+		textPanel.add(minuteTextField);
+		
+//		secondTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
+		secondTextField.setText("0");
+		textPanel.add(secondTextField);
+		
+		this.add(textPanel);
 	}
 
 	public JLabel getTimeLeftLabel() {
