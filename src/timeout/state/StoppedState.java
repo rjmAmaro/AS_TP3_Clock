@@ -12,7 +12,7 @@ public class StoppedState implements State {
 
 	@Override
 	public void start() {
-		timeoutController.setState(timeoutController.getCountingState());
+		timeoutController.setState(timeoutController.getDecrementingState());
 	}
 
 	@Override
@@ -22,9 +22,8 @@ public class StoppedState implements State {
 	public void pause() { }
 
 	@Override
-	public void edit() {
-		// TODO Auto-generated method stub
-		
+	public void edit(int hour, int minute, int second) {
+		this.timeoutController.editTimer(hour, minute, second);
 	}
 
 	@Override

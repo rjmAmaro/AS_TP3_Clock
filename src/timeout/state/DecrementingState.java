@@ -1,12 +1,14 @@
 package timeout.state;
 
+import java.time.Duration;
+
 import timeout.TimeoutController;
 
-public class CountingState implements State {
+public class DecrementingState implements State {
 
 	private TimeoutController timeoutController;
 	
-	public CountingState(TimeoutController timeoutController) {
+	public DecrementingState(TimeoutController timeoutController) {
 		this.timeoutController = timeoutController;
 	}
 	
@@ -15,6 +17,7 @@ public class CountingState implements State {
 
 	@Override
 	public void stop() {
+		this.timeoutController.setTimeLeft(Duration.ofSeconds(0));
 		this.timeoutController.setState(timeoutController.getStoppedState());
 	}
 
@@ -24,7 +27,7 @@ public class CountingState implements State {
 	}
 
 	@Override
-	public void edit() { }
+	public void edit(int hour, int minute, int second) { }
 
 	@Override
 	public void decrement() {

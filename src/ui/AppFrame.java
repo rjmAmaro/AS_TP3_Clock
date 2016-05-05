@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import clock.ClockController;
 import driver.ClockDriver;
+import timeout.TimeoutManager;
 import ui.alarm.AlarmPanel;
 import ui.clock.ClockPanel;
 import ui.timeout.TimeoutPanel;
@@ -43,9 +44,9 @@ public class AppFrame extends JFrame {
 		this.add(this.alarmPanel);
 	}
 	
-	public void buildTimeoutPanel() {
+	public void buildTimeoutPanel(TimeoutManager timeoutManager) {
 		this.timeoutPanel = new TimeoutPanel();
-		this.timeoutPanel.build(this.clockDriver);
+		this.timeoutPanel.build(timeoutManager);
 		this.add(this.timeoutPanel);
 	}
 

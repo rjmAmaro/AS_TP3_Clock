@@ -14,7 +14,7 @@ public class PausedState implements State {
 
 	@Override
 	public void start() {
-		this.timeoutController.setState(this.timeoutController.getCountingState());
+		this.timeoutController.setState(this.timeoutController.getDecrementingState());
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class PausedState implements State {
 	public void pause() { }
 
 	@Override
-	public void edit() { }
+	public void edit(int hour, int minute, int second) { }
 
 	@Override
 	public void decrement() { }

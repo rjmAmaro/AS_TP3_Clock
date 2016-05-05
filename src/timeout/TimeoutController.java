@@ -7,8 +7,7 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
-import timeout.state.CountingState;
-import timeout.state.EditedState;
+import timeout.state.DecrementingState;
 import timeout.state.PausedState;
 import timeout.state.State;
 import timeout.state.StoppedState;
@@ -19,19 +18,19 @@ public class TimeoutController implements Observer {
 	private Duration timeLeft;
 	
 	private State stoppedState;
-	private State countingState;
+	private State decrementingState;
 	private State pausedState;
-	private State editedState;
 	
 	private State state;
 	
 	public TimeoutController() {
-		this.setTimeLeft(Duration.ofSeconds(0));
+		this.timeLeft = Duration.ofSeconds(0);
 		
 		this.stoppedState = new StoppedState(this);
-		this.countingState = new CountingState(this);
+		this.decrementingState = new DecrementingState(this);
 		this.pausedState = new PausedState(this);
-		this.editedState = new EditedState(this);
+		
+		this.state = this.stoppedState;
 	}
 	
 	@Override
@@ -42,6 +41,19 @@ public class TimeoutController implements Observer {
 	public void decrementTimer() {
 		this.timeLeft = this.timeLeft.minus(1, ChronoUnit.SECONDS);
 		this.timeLeftLabel.setText(this.timeLeft.toString());
+	}
+	
+	public void editTimer(int hour, int minute, int second) {
+		int totalSeconds = hour * 3600 + minute * 60 + second;
+		this.timeLeft = Duration.ofSeconds(totalSeconds);
+	}
+
+	public JLabel getTimeLeftLabel() {
+		return timeLeftLabel;
+	}
+
+	public void setTimeLeftLabel(JLabel timeLeftLabel) {
+		this.timeLeftLabel = timeLeftLabel;
 	}
 
 	public Duration getTimeLeft() {
@@ -64,16 +76,12 @@ public class TimeoutController implements Observer {
 		return stoppedState;
 	}
 
-	public State getCountingState() {
-		return countingState;
+	public State getDecrementingState() {
+		return decrementingState;
 	}
 
 	public State getPausedState() {
 		return pausedState;
-	}
-
-	public State getEditedState() {
-		return editedState;
 	}
 
 }
