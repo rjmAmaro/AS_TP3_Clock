@@ -14,7 +14,7 @@ public class ClockPanel extends JPanel {
 	private ClockController clockController;
 	
 	private EditDateTimePanel editDateTimePanel;
-	private ChangeClockTypePanel changeClockTypePanel;
+	private ClockViewerPanel clockViewerPanel;
 	
 	private JLabel title = new JLabel("Clock");
 	private JLabel time;
@@ -28,7 +28,7 @@ public class ClockPanel extends JPanel {
 		
 		
 		editDateTimePanel = new EditDateTimePanel(this);
-		changeClockTypePanel = new ChangeClockTypePanel(this);
+		clockViewerPanel = new ClockViewerPanel(this);
 		
 	}
 	
@@ -41,7 +41,7 @@ public class ClockPanel extends JPanel {
 		this.clockController.setLabel(time);
 
 		editDateTimePanel.build(clockController, clockDriver);
-		changeClockTypePanel.build(clockController, clockDriver);
+		clockViewerPanel.build(clockController, clockDriver);
 	}
 	
 	public void changeTime(int hour, int minute) {
@@ -63,13 +63,13 @@ public class ClockPanel extends JPanel {
 	}
 
 
-	public ChangeClockTypePanel getChangeClockTypePanel() {
-		return changeClockTypePanel;
+	public ClockViewerPanel getClockViewerPanel() {
+		return clockViewerPanel;
 	}
 
 
-	public void setChangeClockTypePanel(ChangeClockTypePanel changeClockTypePanel) {
-		this.changeClockTypePanel = changeClockTypePanel;
+	public void setClockViewerPanel(ClockViewerPanel clockViewerPanel) {
+		this.clockViewerPanel = clockViewerPanel;
 	}
 
 

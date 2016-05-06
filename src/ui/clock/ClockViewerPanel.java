@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import clock.ClockController;
 import driver.ClockDriver;
 
-public class ChangeClockTypePanel {
+public class ClockViewerPanel {
 
 	private ClockPanel clockPanel;
 	private ClockDriver clockDriver;
@@ -21,7 +21,7 @@ public class ChangeClockTypePanel {
 	
 	private JTextField digitalField;
 	
-	public ChangeClockTypePanel(ClockPanel clockPanel) {
+	public ClockViewerPanel(ClockPanel clockPanel) {
 		
 		this.clockPanel = clockPanel;
 		
