@@ -1,95 +1,75 @@
 package ui.clock;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 
 import clock.ClockController;
 import driver.ClockDriver;
 
-public class ClockViewerPanel {
+public class ClockViewerPanel extends JPanel {
 
 	private ClockPanel clockPanel;
 	private ClockDriver clockDriver;
 	private ClockController clockController;
 	
-	
-	private JTextField digitalField;
+	private JPanel clockViewer;					// painel onde é mostrado o relógio em formato digital ou analógico
+	private JPanel changeViewerPanel;			// painel com o botão para mudar o tipo de visualização (digital/analógico)
+	private DigitalClockPanel digitalClockPanel;// painel para mostrar o relógio em modo digital
+//	private AnalogClockPanel analogClockPanel;	// painel para mostrar o relógio em modo analógico
+	private JButton changeClockTypeButton;
 	
 	public ClockViewerPanel(ClockPanel clockPanel) {
-		
+		super();
 		this.clockPanel = clockPanel;
-		
+		buildUI();
 	}
 	
 	public void build(ClockController clockController, ClockDriver clockDriver){
-
 		this.clockController = clockController;
 		this.clockDriver = clockDriver;
-
-		clockTypeButton();
+	}
+	
+	private void buildUI() {
+		clockViewer = new JPanel();
+		this.add(clockViewer);
+		changeViewerPanel = new JPanel();
+		this.add(changeViewerPanel);
+		
+		digitalClockPanel = new DigitalClockPanel();
+		clockViewer.add(digitalClockPanel);
 		initiateDigitalClock();
 		
+		buildChangeClockTypeButton();
+		changeViewerPanel.add(changeClockTypeButton);
 	}
 	
-	
-	public void clockTypeButton(){
-		
-		JButton clockType = new JButton("Go to Analog Clock Timer"); // reference to the button object
-		
-		clockType.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//if state is x go to y else go to z
-				//make state change the curse of events
-				clockType.setText("Go to Digital Clock Timer");
-					
-			}
-		});			
-		
-		clockPanel.add(clockType);
+	public void buildChangeClockTypeButton(){
+		changeClockTypeButton = new JButton();
+		this.setChangeClockTypeButtonToAnalog();
 	}
 	
+	private void setChangeClockTypeButtonToAnalog() {
+		changeClockTypeButton.setText("Go to Analog Clock");
+		changeClockTypeButton.addActionListener(e -> {
+			clockController.getState().analog();
+			this.setChangeClockTypeButtonToDigital();
+		});
+	}
 	
+	private void setChangeClockTypeButtonToDigital() {
+		changeClockTypeButton.setText("Go to Digital Clock");
+		changeClockTypeButton.addActionListener(e -> {
+			clockController.getState().digital();
+			this.setChangeClockTypeButtonToAnalog();
+		});
+	}
 	
-	
+	private void initiateDigitalClock() {
+		digitalClockPanel.getDateTimeLabel().setText(clockController.getDateTime().toString());
+	}
 	
 	public void initiateAnalogClock(){
-		
-		
-		
-		
-	}
-	
-	private void initiateDigitalClock(){
-		
-		digitalField = new JTextField();
-		digitalField.setText(clockDriver.getTime().toString());
-
-		clockPanel.add(digitalField);
-		
-		clockController.getAnalogState().digital();
 
 	}
-	
-	public JTextField getDigitalField() {
-		return digitalField;
-	}
 
-	public void setDigitalField(JTextField digitalField) {
-		this.digitalField = digitalField;
-	}
-
-	
-	
-	
-	
-	
-	
 }
