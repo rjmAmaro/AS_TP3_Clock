@@ -1,17 +1,17 @@
 package driver;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Observable;
 
 public class ClockDriver extends Observable implements Runnable {
 	
-	private LocalTime time;
+	private LocalDateTime time;
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		time = LocalTime.now();
+		time = LocalDateTime.now();
 		
 		try {
 			Thread.sleep(999);
@@ -36,11 +36,11 @@ public class ClockDriver extends Observable implements Runnable {
 		}
 	}
 
-	public LocalTime getTime() {
+	public LocalDateTime getTime() {
 		return time;
 	}
 
-	public void setTime(LocalTime time) {
+	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
 
