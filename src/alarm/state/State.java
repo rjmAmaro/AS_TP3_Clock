@@ -9,6 +9,6 @@ public interface State {
 	public void shut();
 	public void verify();
 	public void edit(JPanel p);
-	public void save(int id, int hora, int minuto);
+	public void save(AlarmController alarmController2, int hora, int minuto);
 	public void cancel();
 }

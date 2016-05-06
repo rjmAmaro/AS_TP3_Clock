@@ -35,7 +35,7 @@ public class WaitingState implements State{
 	}
 
 	@Override
-	public void save(int id, int hora, int minuto) { }
+	public void save(AlarmController alarmController2, int hora, int minuto) { }
 
 	@Override
 	public void cancel() { }

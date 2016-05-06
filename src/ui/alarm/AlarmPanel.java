@@ -229,12 +229,24 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		
 		JButton saveEditButton = new JButton("Save");
 		editPanel.add(saveEditButton);
-		saveEditButton.addActionListener(e1 -> {
-			System.out.println("SAVE ALARM ID: "+alarmController2.getId());
-		});
-		
 		JButton cancelEditButton = new JButton("Cancel");
 		editPanel.add(cancelEditButton);
+		
+		saveEditButton.addActionListener(e1 -> {
+			System.out.println("SAVE ALARM ID: "+alarmController2.getId());
+			alarmController2.getState().save(alarmController2, Integer.parseInt(this.editHorasField.getText()), Integer.parseInt(this.editMinField.getText()));
+			this.remove(alarmsListPanel);
+			this.revalidate();
+			this.repaint();
+			buildAlarmListPanel(1);
+			editPanel.remove(cancelEditButton);
+			editPanel.remove(saveEditButton);
+			editPanel.remove(editMinutePanel);
+			editPanel.remove(editHourPanel);
+			this.remove(editPanel);
+			this.revalidate();
+		});
+	
 		cancelEditButton.addActionListener(e1 -> {
 			System.out.println("CANCEL ALARM ID: "+alarmController2.getId());
 			alarmController2.getState().cancel();
@@ -244,7 +256,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 			editPanel.remove(editHourPanel);
 			this.remove(editPanel);
 			this.revalidate();
-			this.repaint();
 		});
 		
 		
