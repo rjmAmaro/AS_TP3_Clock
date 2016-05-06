@@ -13,6 +13,12 @@ public class StoppedState implements State {
 	@Override
 	public void start() {
 		timeoutController.setState(timeoutController.getDecrementingState());
+		
+		timeoutController.getPanel().hideAndDisableStartButton();
+		timeoutController.getPanel().hideAndDisableEditPanel();
+		
+		timeoutController.getPanel().showAndEnablePauseButton();
+		timeoutController.getPanel().showAndEnableStopButton();
 	}
 
 	@Override
@@ -24,6 +30,7 @@ public class StoppedState implements State {
 	@Override
 	public void edit(int hour, int minute, int second) {
 		this.timeoutController.editTimer(hour, minute, second);
+		this.timeoutController.getPanel().getTimeLeftLabel().setText(this.timeoutController.getTimeAsString());
 	}
 
 	@Override

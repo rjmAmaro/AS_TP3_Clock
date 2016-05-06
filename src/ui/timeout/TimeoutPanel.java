@@ -20,6 +20,11 @@ public class TimeoutPanel extends JPanel {
 	private static final int TEXT_FIELD_HEIGHT = 20;
 	
 	private TimeoutController timeoutController;
+	
+	private JPanel startPausePanel = new JPanel();
+	private JPanel stopPanel = new JPanel();
+	private JPanel editTimerPanel = new JPanel();
+	private JPanel textPanel = new JPanel();
 
 	private JLabel title = new JLabel("Timeout");
 	private JLabel timeLeftLabel = new JLabel();
@@ -49,15 +54,39 @@ public class TimeoutPanel extends JPanel {
 	}
 	
 	private void buildUI() {
+		buildStartPausePanel();
+		startPausePanel.setVisible(true);
+		buildStopPanel();
+		buildEditTimerPanel();
+	}
+	
+	private void buildStartPausePanel() {
 		buildStartButton();
-		buildStopButton();
 		buildPauseButton();
-		buildEditableTextFields();
+		startPausePanel.add(startButton);
+		this.add(startPausePanel);
+	}
+	
+	private void buildStopPanel() {
+		buildStopButton();
+		this.add(stopPanel);
+	}
+	
+	private void buildEditTimerPanel() {
 		buildEditButton();
+		buildEditableTextFields();
+		
+		editTimerPanel.setLayout(new GridLayout(2, 1));
+		
+		editTimerPanel.add(textPanel);
+		JPanel bPanel = new JPanel();
+		bPanel.add(editButton);
+		editTimerPanel.add(bPanel);
+		editTimerPanel.setVisible(true);
+		this.add(editTimerPanel);
 	}
 	
 	private void buildStartButton() {
-		this.add(startButton);
 		this.startButton.setLocation(10, 400);
 		this.startButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		this.startButton.setVisible(true);
@@ -68,7 +97,6 @@ public class TimeoutPanel extends JPanel {
 	}
 	
 	private void buildStopButton() {
-		this.add(stopButton);
 		this.stopButton.setLocation(10, 400);
 		this.stopButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		this.stopButton.setVisible(true);
@@ -79,7 +107,6 @@ public class TimeoutPanel extends JPanel {
 	}
 	
 	private void buildPauseButton() {
-		this.add(pauseButton);
 		this.pauseButton.setLocation(10, 400);
 		this.pauseButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		this.pauseButton.setVisible(true);
@@ -90,7 +117,6 @@ public class TimeoutPanel extends JPanel {
 	}
 	
 	private void buildEditButton() {
-		this.add(editButton);
 		this.editButton.setLocation(10, 400);
 		this.editButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		this.editButton.setVisible(true);
@@ -107,7 +133,6 @@ public class TimeoutPanel extends JPanel {
 	}
 	
 	private void buildEditableTextFields() {
-		JPanel textPanel = new JPanel();
 		textPanel.setLayout(new GridLayout(2, 3));
 		
 		JLabel hourLabel = new JLabel("Hours");
@@ -128,8 +153,52 @@ public class TimeoutPanel extends JPanel {
 //		secondTextField.setSize(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT);
 		secondTextField.setText("0");
 		textPanel.add(secondTextField);
-		
-		this.add(textPanel);
+	}
+	
+	public void hideAndDisableStartButton() {
+		startPausePanel.remove(startButton);
+		startButton.setEnabled(false);
+		startButton.setVisible(false);
+	}
+	
+	public void showAndEnableStartButton() {
+		startPausePanel.add(startButton);
+		startButton.setEnabled(true);
+		startButton.setVisible(true);
+	}
+	
+	public void hideAndDisablePauseButton() {
+		pauseButton.setEnabled(false);
+		pauseButton.setVisible(false);
+		startPausePanel.remove(pauseButton);
+	}
+	
+	public void showAndEnablePauseButton() {
+		startPausePanel.add(pauseButton);
+		pauseButton.setEnabled(true);
+		pauseButton.setVisible(true);
+	}
+	
+	public void hideAndDisableStopButton() {
+//		stopPanel.remove(stopButton);
+		stopButton.setEnabled(false);
+		stopButton.setVisible(false);
+	}
+	
+	public void showAndEnableStopButton() {
+		stopPanel.add(stopButton);
+		stopButton.setEnabled(true);
+		stopButton.setVisible(true);
+	}
+	
+	public void hideAndDisableEditPanel() {
+		editButton.setEnabled(false);
+		editTimerPanel.setVisible(false);
+	}
+	
+	public void showAndEnableEditPanel() {
+		editButton.setEnabled(true);
+		editTimerPanel.setVisible(true);
 	}
 
 	public JLabel getTimeLeftLabel() {
