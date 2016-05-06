@@ -19,6 +19,8 @@ public class ChangeClockTypePanel {
 	private ClockController clockController;
 	
 	
+	private JTextField digitalField;
+	
 	public ChangeClockTypePanel(ClockPanel clockPanel) {
 		
 		this.clockPanel = clockPanel;
@@ -29,8 +31,7 @@ public class ChangeClockTypePanel {
 
 		this.clockController = clockController;
 		this.clockDriver = clockDriver;
-		
-		
+
 		clockTypeButton();
 		initiateDigitalClock();
 		
@@ -68,11 +69,23 @@ public class ChangeClockTypePanel {
 	
 	private void initiateDigitalClock(){
 		
-		JTextField field = new JTextField();
+		digitalField = new JTextField();
+		digitalField.setText(clockDriver.getTime().toString());
+
+		clockPanel.add(digitalField);
 		
 		clockController.getAnalogState().digital();
 
 	}
+	
+	public JTextField getDigitalField() {
+		return digitalField;
+	}
+
+	public void setDigitalField(JTextField digitalField) {
+		this.digitalField = digitalField;
+	}
+
 	
 	
 	

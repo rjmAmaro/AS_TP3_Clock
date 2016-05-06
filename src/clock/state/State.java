@@ -7,7 +7,7 @@ public interface State {
 	public void digital();
 	public void analog();
 	public void edit(Date datetime);
-	public void count();
+	public void refresh();
 	
 	
 	

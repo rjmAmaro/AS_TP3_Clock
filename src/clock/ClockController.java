@@ -22,15 +22,16 @@ public class ClockController implements Observer {
 	private ClockDriver clockDriver;
 	private ClockPanel clockPanel;
 	
-	
 	public ClockController(){
 		analogState = new AnalogState(this);
 		digitalState = new DigitalState(this);
+		state = digitalState;
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		this.clockDriver = (ClockDriver) o;
+		this.getState().refresh();
 		
 		label.setText(clockDriver.getTime().toString());
 	}

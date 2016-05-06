@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 
 import clock.ClockController;
 import driver.ClockDriver;
+import ui.clock.ClockPanel;
 
 public class DigitalState implements State{
 	
@@ -29,6 +30,7 @@ public class DigitalState implements State{
 	public void digital() {
 		
 		
+		
 	}
 
 	@Override
@@ -39,7 +41,8 @@ public class DigitalState implements State{
 
 
 	@Override
-	public void count() {
+	public void refresh() {
+		//ClockPanel clockPanel = clockController.getClockPanel();
 		// TODO Auto-generated method stub
 		
 	}

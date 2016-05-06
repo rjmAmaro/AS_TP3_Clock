@@ -36,7 +36,7 @@ public class AnalogState implements State{
 	}
 
 	@Override
-	public void count() {
+	public void refresh() {
 		// TODO Auto-generated method stub
 		
 	}
