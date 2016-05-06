@@ -29,4 +29,9 @@ private AlarmController alarmControler;
 		this.alarmControler.setState(this.alarmControler.getWaitingState());
 	}
 
+	@Override
+	public void cancel() {
+		this.alarmControler.setState(this.alarmControler.getWaitingState());
+	}
+
 }

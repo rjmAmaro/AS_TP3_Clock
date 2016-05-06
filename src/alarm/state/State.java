@@ -10,4 +10,5 @@ public interface State {
 	public void verify();
 	public void edit(JPanel p);
 	public void save(int id, int hora, int minuto);
+	public void cancel();
 }

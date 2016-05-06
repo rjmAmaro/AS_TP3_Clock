@@ -237,6 +237,14 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		editPanel.add(cancelEditButton);
 		cancelEditButton.addActionListener(e1 -> {
 			System.out.println("CANCEL ALARM ID: "+alarmController2.getId());
+			alarmController2.getState().cancel();
+			editPanel.remove(cancelEditButton);
+			editPanel.remove(saveEditButton);
+			editPanel.remove(editMinutePanel);
+			editPanel.remove(editHourPanel);
+			this.remove(editPanel);
+			this.revalidate();
+			this.repaint();
 		});
 		
 		

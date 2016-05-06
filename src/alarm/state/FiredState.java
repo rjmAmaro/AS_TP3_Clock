@@ -29,4 +29,7 @@ public class FiredState implements State{
 	@Override
 	public void save(int id, int hora, int minuto) { }
 
+	@Override
+	public void cancel() {	}
+
 }
