@@ -35,7 +35,7 @@ public class AlarmManager implements Runnable {
 	
 	private void printAlarms() {
 		for(int i=0; i<alarmsList.size(); i++){
-			System.out.println("ALARME Nº"+(i+1)+" : "+alarmsList.get(i).getAlarmTime());
+			System.out.println("ALARME ID "+alarmsList.get(i).getId()+" : "+alarmsList.get(i).getAlarmTime());
 		}
 		
 	}

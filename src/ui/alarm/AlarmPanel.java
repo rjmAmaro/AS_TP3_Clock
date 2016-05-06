@@ -172,15 +172,15 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 			
 				JButton editB = new JButton("Edit");
 				e.add(editB);
-				/*editB.addActionListener(e1 -> {
-					System.out.println("ID ALARME ESCOLHIDO: "+iAlarm.getId());
-					//iAlarm.getState().edit();
-				});*/
+				editB.addActionListener(e1 -> {
+					System.out.println("ID ALARME PARA MODIFICAR: "+iAlarm.getId());
+					iAlarm.getState().edit();
+				});
 				
 				JButton deleteB = new JButton("Delete");
 				d.add(deleteB);
 				deleteB.addActionListener(e2 -> {
-					System.out.println("ID ALARME ESCOLHIDO: "+iAlarm.getId());
+					System.out.println("ID ALARME PARA APAGAR: "+iAlarm.getId());
 					this.alarmManager.deleteAlarm(iAlarm.getId());
 					this.remove(alarmsListPanel);
 					this.revalidate();
