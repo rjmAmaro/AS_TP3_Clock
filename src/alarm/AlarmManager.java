@@ -50,4 +50,20 @@ public class AlarmManager implements Runnable {
 		}	
 		alarm.setAlarmTime(LocalTime.of(hour, minute));
 	}
+	
+	public void deleteAlarm(int id){
+		for(int i=0; i<alarmsList.size(); i++){
+			if(alarmsList.get(i).getId() == id){
+				alarmsList.remove(i);
+			}
+		}
+	}
+
+	public List<AlarmController> getAlarmsList() {
+		return alarmsList;
+	}
+
+	public void setAlarmsList(List<AlarmController> alarmsList) {
+		this.alarmsList = alarmsList;
+	}
 }

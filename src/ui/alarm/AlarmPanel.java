@@ -6,6 +6,8 @@ import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -25,10 +27,11 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	private JLabel title = new JLabel("Alarms ");
 	
 	private JPanel newAlarmPanel;
-	private JPanel alarmsList;
+	private JPanel alarmsListPanel;
 	private JPanel p;
 	
 	private Map<Integer, JPanel> alarmsListPanels;
+	private List<AlarmController> alarmList;
 	
 	private JLabel horasLabel = new JLabel("Hora do Alarme");
 	private JLabel minLabel = new JLabel("Minutos do Alarme");
@@ -46,7 +49,7 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 
 	public AlarmPanel() {
 		this.alarmsListPanels = new HashMap<Integer, JPanel>();
-		
+
 		this.setLayout(new GridLayout(5, 1));
 		title.setHorizontalAlignment(JLabel.CENTER);
 		this.add(title);
@@ -63,11 +66,10 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		buildNewAlarmPanel();
 		this.add(newAlarmPanel);
 		
-		addAlarmPanel(alarmController);
-		alarmsList = new JPanel();
-		alarmsList.setLayout(new GridLayout(0, 1));
-		alarmsList.add(p);
-		this.add(alarmsList);
+		addAlarmPanel(alarmManager, 0);
+		alarmsListPanel = new JPanel();
+		alarmsListPanel.setLayout(new GridLayout(0, 1));
+		this.add(alarmsListPanel);
 	}
 	
 	private void buildNewAlarmPanel() {
@@ -116,44 +118,60 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		
 		this.createButton.addActionListener(e -> {
 			this.alarmManager.createAlarm(Integer.parseInt(this.horasField.getText()), Integer.parseInt(this.minField.getText()));
+			addAlarmPanel(alarmManager, 1);
 		});
 	}
 	
-	public void addAlarmPanel(AlarmController alarm) {
-		p = new JPanel();
-		p.setLayout(new GridLayout(1, 3));
-		
-		if(alarm != null){
-			p.setName(Integer.toString(alarm.getId()));
-
-			JPanel t = new JPanel();
-			JPanel e = new JPanel();
-			JPanel d = new JPanel();
+	public void addAlarmPanel(AlarmManager alarm, int flag) {
+		if(flag != 0){
+			alarmList = alarm.getAlarmsList();		
 			
-			p.add(t);
-			p.add(e);
-			p.add(d);
-		
-			JLabel text = new JLabel(alarm.getAlarmTime().toString());
-			t.add(text);
-		
-		
-			JButton editB = new JButton("Edit");
-			e.add(editB);
-			editB.addActionListener(e1 -> {
-				alarm.getState().edit();
-			});
+			for(int i=0; i<alarmList.size(); i++){
+				
+				AlarmController iAlarm = alarmList.get(i);
+				
+				p = new JPanel();
+				p.setLayout(new GridLayout(1, 3));	
+				
+				p.setVisible(true);
+				
+				p.setName(Integer.toString(iAlarm.getId()));		
+				
+				JPanel t = new JPanel();
+				JPanel e = new JPanel();
+				JPanel d = new JPanel();
+				
+				p.add(t);
+				p.add(e);
+				p.add(d);
 			
-			JButton deleteB = new JButton("Delete");
-			d.add(deleteB);
+				JLabel text = new JLabel(iAlarm.getAlarmTime().toString());
+				t.add(text);
 			
-			t.setVisible(true);
-			e.setVisible(true);
-			d.setVisible(true);		
+				JButton editB = new JButton("Edit");
+				e.add(editB);
+				editB.addActionListener(e1 -> {
+					System.out.println("ID ALARME ESCOLHIDO: "+iAlarm.getId());
+					//iAlarm.getState().edit();
+				});
+				
+				JButton deleteB = new JButton("Delete");
+				d.add(deleteB);
+				deleteB.addActionListener(e2 -> {
+					System.out.println("ID ALARME ESCOLHIDO: "+iAlarm.getId());
+					this.alarmManager.deleteAlarm(iAlarm.getId());
+					addAlarmPanel(alarmManager, 1);
+				});
+				
+				t.setVisible(true);
+				e.setVisible(true);
+				d.setVisible(true);
+				
+			}
+			alarmsListPanel.add(p);
 		}
-		
-		p.setVisible(true);
 	}
+	
 	
 	public void changePanelToEditAlarm(int alarmId) {
 		JPanel p = alarmsListPanels.get(Integer.toString(alarmId));
