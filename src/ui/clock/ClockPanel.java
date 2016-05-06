@@ -32,7 +32,6 @@ public class ClockPanel extends JPanel {
 		this.clockDriver = clockDriver;
 		this.clockController = clockController;
 		this.clockController.setClockPanel(this);
-		this.clockController.setLabel(time);
 		
 		clockViewerPanel = new ClockViewerPanel(clockDriver, clockController, this);
 		editDateTimePanel = new EditDateTimePanel(clockDriver, clockController, this);
@@ -43,11 +42,6 @@ public class ClockPanel extends JPanel {
 	private void buildUI() {
 		this.add(clockViewerPanel);
 		this.add(editDateTimePanel);
-	}
-	
-	public void changeTime(int hour, int minute) {
-		LocalTime newTime = LocalTime.of(hour, minute);
-		this.clockDriver.setTime(newTime);
 	}
 
 	public ClockController getClockController() {
