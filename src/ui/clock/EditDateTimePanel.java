@@ -17,14 +17,16 @@ import clock.ClockController;
 import driver.ClockDriver;
 
 
-public class EditClockPanel {
+public class EditDateTimePanel {
 	
 	private ClockPanel clockPanel;
 	private ClockDriver clockDriver;
 	private ClockController clockController;
 	
+	private JSpinner timeSpinner;
+	private JDatePickerImpl datePicker;
 	
-	EditClockPanel(ClockPanel clockPanel){
+	EditDateTimePanel(ClockPanel clockPanel){
 		
 		this.clockPanel = clockPanel;
 		
@@ -59,7 +61,7 @@ public class EditClockPanel {
 		p.put("text.year", "Year");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		// Don't know about the formatter, but there it is...
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+		datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
 		clockPanel.add(datePicker);
 		
 		
@@ -67,7 +69,7 @@ public class EditClockPanel {
 
 	private void editTimePanel() {
 		
-		JSpinner timeSpinner = new JSpinner( new SpinnerDateModel() );
+		timeSpinner = new JSpinner( new SpinnerDateModel() );
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
 		timeSpinner.setEditor(timeEditor);
 		timeSpinner.setValue(new Date());
@@ -85,7 +87,8 @@ public class EditClockPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				datetimeChange.setText("Ok Button clicked.");
+				System.out.println(timeSpinner);
+				System.out.println(datePicker);
 				
 			}
 		});			
