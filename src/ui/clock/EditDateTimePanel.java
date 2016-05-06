@@ -32,15 +32,12 @@ public class EditDateTimePanel extends JPanel {
 	private JSpinner timeSpinner;
 	private JDatePickerImpl datePicker;
 	
-	EditDateTimePanel(ClockPanel clockPanel){
+	EditDateTimePanel(ClockDriver clockDriver, ClockController clockController, ClockPanel clockPanel){
 		super();
+		this.clockDriver = clockDriver;
+		this.clockController = clockController;
 		this.clockPanel = clockPanel;
 		buildUI();
-	}
-	
-	public void build(ClockController clockController, ClockDriver clockDriver){
-		this.clockController = clockController;
-		this.clockDriver = clockDriver;
 	}
 	
 	private void buildUI() {

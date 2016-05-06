@@ -18,15 +18,12 @@ public class ClockViewerPanel extends JPanel {
 //	private AnalogClockPanel analogClockPanel;	// painel para mostrar o relógio em modo analógico
 	private JButton changeClockTypeButton;
 	
-	public ClockViewerPanel(ClockPanel clockPanel) {
+	public ClockViewerPanel(ClockDriver clockDriver, ClockController clockController, ClockPanel clockPanel) {
 		super();
+		this.clockDriver = clockDriver;
+		this.clockController = clockController;
 		this.clockPanel = clockPanel;
 		buildUI();
-	}
-	
-	public void build(ClockController clockController, ClockDriver clockDriver){
-		this.clockController = clockController;
-		this.clockDriver = clockDriver;
 	}
 	
 	private void buildUI() {

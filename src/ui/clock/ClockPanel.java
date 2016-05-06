@@ -1,5 +1,6 @@
 package ui.clock;
 
+import java.awt.GridLayout;
 import java.time.LocalTime;
 
 import javax.swing.JLabel;
@@ -20,16 +21,9 @@ public class ClockPanel extends JPanel {
 	private JLabel time;
 	
 	public ClockPanel() {
+		this.setLayout(new GridLayout(4, 1));
 		this.add(title);
-		this.time = new JLabel();
-		this.add(this.time);
 		this.setVisible(true);
-		
-		
-		
-		editDateTimePanel = new EditDateTimePanel(this);
-		clockViewerPanel = new ClockViewerPanel(this);
-		
 	}
 	
 	
@@ -39,9 +33,16 @@ public class ClockPanel extends JPanel {
 		this.clockController = clockController;
 		this.clockController.setClockPanel(this);
 		this.clockController.setLabel(time);
-
-		editDateTimePanel.build(clockController, clockDriver);
-		clockViewerPanel.build(clockController, clockDriver);
+		
+		clockViewerPanel = new ClockViewerPanel(clockDriver, clockController, this);
+		editDateTimePanel = new EditDateTimePanel(clockDriver, clockController, this);
+		
+		buildUI();
+	}
+	
+	private void buildUI() {
+		this.add(clockViewerPanel);
+		this.add(editDateTimePanel);
 	}
 	
 	public void changeTime(int hour, int minute) {
