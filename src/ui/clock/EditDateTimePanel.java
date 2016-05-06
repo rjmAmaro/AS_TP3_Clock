@@ -2,12 +2,13 @@ package ui.clock;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -15,33 +16,38 @@ import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
 import clock.ClockController;
 import driver.ClockDriver;
 
 
-public class EditDateTimePanel {
+public class EditDateTimePanel extends JPanel {
 	
 	private ClockPanel clockPanel;
 	private ClockDriver clockDriver;
 	private ClockController clockController;
 	
+	private JLabel subTitle;
+	
 	private JSpinner timeSpinner;
 	private JDatePickerImpl datePicker;
 	
 	EditDateTimePanel(ClockPanel clockPanel){
-		
+		super();
 		this.clockPanel = clockPanel;
-		
+		buildUI();
 	}
 	
 	public void build(ClockController clockController, ClockDriver clockDriver){
-		
 		this.clockController = clockController;
 		this.clockDriver = clockDriver;
-		
-		editDateTimePanel();
-		
 	}
+	
+	private void buildUI() {
+		subTitle = new JLabel("Change time");
+		this.add(subTitle);
+	}
+	
 	
 	public void editDateTimePanel(){
 		
