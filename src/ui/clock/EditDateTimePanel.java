@@ -1,7 +1,6 @@
 package ui.clock;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -24,16 +23,23 @@ import driver.ClockDriver;
 public class EditDateTimePanel extends JPanel {
 	
 	private ClockPanel clockPanel;
-	private ClockDriver clockDriver;
+	private ClockDriver clockDriver;		// este provavelmente não vai ser preciso
 	private ClockController clockController;
 	
 	private JLabel subTitle;
+	
+	private JPanel datePanel;
+	private JPanel timePanel;
+	private JPanel buttonPanel;
+	
+	private JButton editDateTimeButton;
 	
 	private JSpinner timeSpinner;
 	private JDatePickerImpl datePicker;
 	
 	EditDateTimePanel(ClockDriver clockDriver, ClockController clockController, ClockPanel clockPanel){
 		super();
+		this.setLayout(new GridLayout(4, 1));
 		this.clockDriver = clockDriver;
 		this.clockController = clockController;
 		this.clockPanel = clockPanel;
@@ -41,21 +47,19 @@ public class EditDateTimePanel extends JPanel {
 	}
 	
 	private void buildUI() {
-		subTitle = new JLabel("Change time");
+		subTitle = new JLabel("Edit Date-Time");
 		this.add(subTitle);
+		
+		buildDatePanel();
+		buildTimePanel();
+		buildButtonPanel();
 	}
 	
-	
-	public void editDateTimePanel(){
+	private void buildDatePanel() {
+		datePanel = new JPanel();
+		// adicionar os elementos referentes à data ao datePanel
 		
-		editDatePanel();
-		editTimePanel();
-		editSendButton();
-		
-	}
-
-	
-	private void editDatePanel() {
+		// Adicionar código aqui
 		
 		UtilDateModel model = new UtilDateModel();
 		//model.setDate(20,04,2014);
@@ -64,15 +68,21 @@ public class EditDateTimePanel extends JPanel {
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
 		p.put("text.year", "Year");
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		JDatePanelImpl datePanelI = new JDatePanelImpl(model, p);
 		// Don't know about the formatter, but there it is...
-		datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+		datePicker = new JDatePickerImpl(datePanelI, new DateComponentFormatter());
 		clockPanel.add(datePicker);
 		
+		// FIM
 		
+		this.add(datePanel);
 	}
 
-	private void editTimePanel() {
+	private void buildTimePanel() {
+		timePanel = new JPanel();
+		// adicionar os elementos referentes ao tempo ao timePanel
+		
+		// Adicionar código aqui
 		
 		timeSpinner = new JSpinner( new SpinnerDateModel() );
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
@@ -81,41 +91,44 @@ public class EditDateTimePanel extends JPanel {
 		
 		clockPanel.add(timeSpinner);
 		
+		// FIM
+		
+		this.add(timePanel);
 	}
 	
-	public void editSendButton(){
+	private void buildButtonPanel() {
+		buttonPanel = new JPanel();
+		buildSendButton();
+		buttonPanel.add(editDateTimeButton);
+		this.add(buttonPanel);
+	}
+	
+	public void buildSendButton(){
+		editDateTimeButton = new JButton("Edit Date Time"); // reference to the button object
 		
-		JButton datetimeChange = new JButton("Change Date Time"); // reference to the button object
-		
-		datetimeChange.addActionListener(new ActionListener() {
+		editDateTimeButton.addActionListener(e -> {
+			// código para o botão
+			int year = 0, month = 0, dayOfMonth = 0, hour = 0, minute = 0;
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println(datePicker.getModel().getYear());
-				System.out.println(datePicker.getModel().getMonth());
-				System.out.println(datePicker.getModel().getDay());
-				
-				Date o = (Date) timeSpinner.getValue();
+			System.out.println(datePicker.getModel().getYear());
+			System.out.println(datePicker.getModel().getMonth());
+			System.out.println(datePicker.getModel().getDay());
+			
+			Date o = (Date) timeSpinner.getValue();
 
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(o);  
-				
-				int hours = cal.get(Calendar.HOUR_OF_DAY);
-				int minutes = cal.get(Calendar.MINUTE);
-				int seconds = cal.get(Calendar.SECOND);
-				System.out.println(hours);
-				System.out.println(minutes);
-				System.out.println(seconds);
-				
-				
-
-				
-			}
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(o);  
+			
+			int hours = cal.get(Calendar.HOUR_OF_DAY);
+			int minutes = cal.get(Calendar.MINUTE);
+			int seconds = cal.get(Calendar.SECOND);
+			System.out.println(hours);
+			System.out.println(minutes);
+			System.out.println(seconds);
+			
+			// no final, invoca este método para editar a data-hora
+			this.clockController.getState().edit(year, month, dayOfMonth, hour, minute);
 		});			
-		
-		clockPanel.add(datetimeChange);
-		
 	}
 	
 	
