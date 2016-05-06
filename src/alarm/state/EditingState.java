@@ -25,7 +25,7 @@ private AlarmController alarmControler;
 	public void edit(JPanel p) { }
 
 	@Override
-	public void save(AlarmController alarmController2, int hora, int minuto) {
+	public void save(int hora, int minuto) {
 		this.alarmControler.editAlarm(hora, minuto);
 		this.alarmControler.setState(this.alarmControler.getWaitingState());
 	}

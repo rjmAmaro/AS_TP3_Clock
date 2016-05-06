@@ -234,7 +234,7 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		
 		saveEditButton.addActionListener(e1 -> {
 			System.out.println("SAVE ALARM ID: "+alarmController2.getId());
-			alarmController2.getState().save(alarmController2, Integer.parseInt(this.editHorasField.getText()), Integer.parseInt(this.editMinField.getText()));
+			alarmController2.getState().save(Integer.parseInt(this.editHorasField.getText()), Integer.parseInt(this.editMinField.getText()));
 			this.remove(alarmsListPanel);
 			this.revalidate();
 			this.repaint();

@@ -27,7 +27,7 @@ public class FiredState implements State{
 	public void edit(JPanel p) { }
 
 	@Override
-	public void save(AlarmController alarmController2, int hora, int minuto) { }
+	public void save(int hora, int minuto) { }
 
 	@Override
 	public void cancel() {	}
