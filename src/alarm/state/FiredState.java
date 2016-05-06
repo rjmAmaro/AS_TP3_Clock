@@ -1,5 +1,7 @@
 package alarm.state;
 
+import javax.swing.JPanel;
+
 import alarm.AlarmController;
 
 public class FiredState implements State{
@@ -22,7 +24,7 @@ public class FiredState implements State{
 	public void verify() { }
 
 	@Override
-	public void edit() { }
+	public void edit(JPanel p) { }
 
 	@Override
 	public void save(int id, int hora, int minuto) { }
