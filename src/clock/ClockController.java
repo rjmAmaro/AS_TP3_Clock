@@ -1,5 +1,6 @@
 package clock;
 
+import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,6 +15,8 @@ import ui.clock.ClockPanel;
 public class ClockController implements Observer {
 	
 	JLabel label;
+	
+	private LocalDateTime dateTime;
 
 	private State analogState;
 	private State digitalState;
@@ -31,6 +34,7 @@ public class ClockController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		this.clockDriver = (ClockDriver) o;
+		this.setDateTime(LocalDateTime.from(((ClockDriver) o).getTime()));
 		this.getState().refresh();
 		
 		label.setText(clockDriver.getTime().toString());
@@ -84,6 +88,14 @@ public class ClockController implements Observer {
 
 	public void setClockPanel(ClockPanel clockPanel) {
 		this.clockPanel = clockPanel;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 	
 	
