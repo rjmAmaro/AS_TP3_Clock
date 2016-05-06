@@ -6,6 +6,8 @@ import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -20,16 +22,16 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 
 	private ClockDriver clockDriver;
 	private AlarmManager alarmManager;
-	
-	private static final int BUTTON_WIDTH = 50;
-	private static final int BUTTON_HEIGHT = 20;
+	private AlarmController alarmController;
 	
 	private JLabel title = new JLabel("Alarms ");
 	
 	private JPanel newAlarmPanel;
-	private JPanel alarmsList;
+	private JPanel alarmsListPanel;
+	//private JPanel p;
 	
 	private Map<Integer, JPanel> alarmsListPanels;
+	private List<AlarmController> alarmList;
 	
 	private JLabel horasLabel = new JLabel("Hora do Alarme");
 	private JLabel minLabel = new JLabel("Minutos do Alarme");
@@ -44,10 +46,13 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	private int minValor = 00;
 
 	private JButton createButton = new JButton("Create Alarm");
+	private JButton alarmOffButton = new JButton("Turn Off Alarm");
+	
+	private boolean alarmNotice = false;
 
 	public AlarmPanel() {
 		this.alarmsListPanels = new HashMap<Integer, JPanel>();
-		
+
 		this.setLayout(new GridLayout(5, 1));
 		title.setHorizontalAlignment(JLabel.CENTER);
 		this.add(title);
@@ -58,14 +63,30 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	public void build(ClockDriver clockDriver, AlarmManager alarmManager) {
 		this.clockDriver = clockDriver;	
 		this.alarmManager = alarmManager;
+		this.alarmManager.setAlarmPanel(this);
 	}
 	
 	private void buildUI(){
 		buildNewAlarmPanel();
 		this.add(newAlarmPanel);
-		
-		alarmsList = new JPanel();
-		alarmsList.setLayout(new GridLayout(0, 1));
+		buildAlarmListPanel(0);
+	}
+	
+	public void buildAlarmListPanel(int flag){
+		if(flag == 0){
+			addAlarmPanel(alarmManager, flag);
+			alarmsListPanel = new JPanel();
+			alarmsListPanel.setLayout(new GridLayout(0, 1));
+			this.add(alarmsListPanel);
+		}else if(flag==1){
+			alarmsListPanel = new JPanel();
+			alarmsListPanel.setLayout(new GridLayout(0, 1));
+			this.add(alarmsListPanel);
+			this.validate();
+			this.repaint();
+			addAlarmPanel(alarmManager, flag);
+			
+		}
 	}
 	
 	private void buildNewAlarmPanel() {
@@ -79,7 +100,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		JPanel b = new JPanel();
 		b.setLayout(new GridLayout(2, 1));
 		b.add(horasLabel);
-		horasFormat = NumberFormat.getNumberInstance();
 		horasField = new JFormattedTextField(horasFormat);
 		horasField.setValue(horasValor);
 		b.add(horasField);
@@ -87,7 +107,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		JPanel c = new JPanel();
 		c.setLayout(new GridLayout(2, 1));
 		c.add(minLabel);
-		minFormat = NumberFormat.getNumberInstance();
 		minField = new JFormattedTextField(minFormat);
 		minField.setValue(minValor);
 		c.add(minField);
@@ -110,45 +129,94 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	
 	public void buildCreateAlarmButton(){
 		this.add(createButton);
-//		this.createButton.setLocation(10, 400);
-		//this.createButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		this.createButton.setVisible(true);
 		
 		this.createButton.addActionListener(e -> {
-			System.out.println("Novo alarme: HORAS: "+horasValor+" MINUTOS: "+minValor);
-			this.alarmManager.createAlarm(horasValor, minValor);
+			this.alarmManager.createAlarm(Integer.parseInt(this.horasField.getText()), Integer.parseInt(this.minField.getText()));
+			this.remove(alarmsListPanel);
+			this.revalidate();
+			this.repaint();
+			buildAlarmListPanel(1);
 		});
 	}
 	
-	public void addAlarmPanel(AlarmController alarm) {
-		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(1, 3));
-		p.setName(Integer.toString(alarm.getId()));
-
-		JPanel t = new JPanel();
-		JPanel e = new JPanel();
-		JPanel d = new JPanel();
-		
-		p.add(t);
-		p.add(e);
-		p.add(d);
-		
-		JLabel text = new JLabel(alarm.getAlarmTime().toString());
-		t.add(text);
-		
-		JButton editB = new JButton("Edit");
-		e.add(editB);
-		editB.addActionListener(e1 -> {
-			alarm.getState().edit();
-		});
-		
-		JButton deleteB = new JButton("Delete");
-		d.add(deleteB);
+	public void addAlarmPanel(AlarmManager alarmManager, int flag) {
+			
+		if(flag != 0){
+			alarmList = alarmManager.getAlarmsList();		
+				
+			for(int i=0; i<alarmList.size(); i++){
+				AlarmController iAlarm = alarmList.get(i);
+				
+				JPanel p = new JPanel();
+				p.setLayout(new GridLayout(1, 3));	
+				
+				p.setName(Integer.toString(iAlarm.getId()));		
+				
+				JPanel t = new JPanel();
+				JPanel e = new JPanel();
+				JPanel d = new JPanel();
+				
+				p.add(t);
+				p.add(e);
+				p.add(d);
+				
+				p.setVisible(true);
+				t.setVisible(true);
+				e.setVisible(true);
+				d.setVisible(true);
+				
+				JLabel text = new JLabel(iAlarm.getAlarmTime().toString());
+				t.add(text);
+			
+				JButton editB = new JButton("Edit");
+				e.add(editB);
+				editB.addActionListener(e1 -> {
+					System.out.println("ID ALARME PARA MODIFICAR: "+iAlarm.getId());
+					iAlarm.getState().edit();
+				});
+				
+				JButton deleteB = new JButton("Delete");
+				d.add(deleteB);
+				deleteB.addActionListener(e2 -> {
+					System.out.println("ID ALARME PARA APAGAR: "+iAlarm.getId());
+					this.alarmManager.deleteAlarm(iAlarm.getId());
+					this.remove(alarmsListPanel);
+					this.revalidate();
+					this.repaint();
+					buildAlarmListPanel(1);
+				});
+				
+				alarmsListPanel.add(p);
+			}
+			
+		}
 	}
 	
 	public void changePanelToEditAlarm(int alarmId) {
 		JPanel p = alarmsListPanels.get(Integer.toString(alarmId));
 		
+	}
+	
+	public void addTurnOffAlarmButton(boolean signal, AlarmController alarmcontroller){
+		this.alarmNotice = signal;
+		
+		JPanel alarmPanel = new JPanel();
+		this.add(alarmPanel);
+		alarmPanel.add(alarmOffButton);
+		this.alarmOffButton.setVisible(true);
+		
+		this.alarmOffButton.addActionListener(e -> {
+			System.out.println("ID: "+alarmcontroller.getId());
+			this.alarmNotice = false;
+			alarmcontroller.getState().shut();
+			alarmPanel.remove(alarmOffButton);
+			alarmPanel.revalidate();
+			alarmPanel.repaint();
+			this.remove(alarmPanel);
+			this.revalidate();
+			this.repaint();
+		});
 	}
 	
 	/** Called when a field's "value" property changes. */

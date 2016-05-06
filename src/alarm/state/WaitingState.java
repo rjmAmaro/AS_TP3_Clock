@@ -1,6 +1,9 @@
 package alarm.state;
 
+import javax.swing.JPanel;
+
 import alarm.AlarmController;
+import ui.alarm.AlarmPanel;
 
 public class WaitingState implements State{
 	
@@ -13,6 +16,8 @@ public class WaitingState implements State{
 	@Override
 	public void fire() {
 		this.alarmController.setState(this.alarmController.getFiredState());
+		AlarmPanel a = this.alarmController.getAlarmPanel();
+		a.addTurnOffAlarmButton(true, this.alarmController);
 	}
 
 	@Override
@@ -24,7 +29,8 @@ public class WaitingState implements State{
 	@Override
 	public void edit() {
 		this.alarmController.setState(this.alarmController.getEditedState());
-		this.alarmController.getAlarmPanel().changePanelToEditAlarm(this.alarmController.getId());
+		AlarmPanel a= this.alarmController.getAlarmPanel();
+		a.changePanelToEditAlarm(this.alarmController.getId());
 	}
 
 	@Override

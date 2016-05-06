@@ -1,6 +1,7 @@
 package app;
 
 import alarm.AlarmManager;
+import alarm.AlarmController;
 import clock.ClockController;
 import driver.ClockDriver;
 import timeout.TimeoutController;

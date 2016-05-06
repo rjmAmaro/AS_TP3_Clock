@@ -5,18 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import driver.ClockDriver;
+import ui.alarm.AlarmPanel;
 
 public class AlarmManager implements Runnable {
 	
 	private static int alarmIdCounter = 1;
 	
 	private ClockDriver clockDriver;
-	private List<Alarm> alarmsList;
+	private List<AlarmController> alarmsList;
+	private AlarmPanel alarmPanel;
 	
 	
 	public AlarmManager(ClockDriver clockDriver) {
 		this.clockDriver = clockDriver;
-		this.alarmsList = new ArrayList<Alarm>();
+		this.alarmsList = new ArrayList<AlarmController>();
 	}
 
 	@Override
@@ -26,7 +28,8 @@ public class AlarmManager implements Runnable {
 	}
 	
 	public void createAlarm(int hour, int minute) {
-		Alarm alarm = new Alarm(alarmIdCounter++, hour, minute);
+		AlarmController alarm = new AlarmController(alarmIdCounter++, hour, minute);
+		alarm.setAlarmPanel(alarmPanel);
 		this.alarmsList.add(alarm);
 		clockDriver.addObserver(alarm);
 		System.out.println("[AlarmManager] New alarm created for " + hour + "h" + minute);
@@ -35,19 +38,59 @@ public class AlarmManager implements Runnable {
 	
 	private void printAlarms() {
 		for(int i=0; i<alarmsList.size(); i++){
-			System.out.println("ALARME Nº"+(i+1)+" : "+alarmsList.get(i).getAlarmTime());
+			System.out.println("ALARME ID "+alarmsList.get(i).getId()+" : "+alarmsList.get(i).getAlarmTime());
 		}
 		
 	}
 
 	public void editAlarm(int id, int hour, int minute) {
-		Alarm alarm = null;
-		for(Alarm a : this.alarmsList) {
+		AlarmController alarm = null;
+		for(AlarmController a : this.alarmsList) {
 			if(a.getId() == id) {
 				alarm = a;
 				break;
 			}
 		}	
 		alarm.setAlarmTime(LocalTime.of(hour, minute));
+	}
+	
+	public void deleteAlarm(int id){
+		for(int i=0; i<alarmsList.size(); i++){
+			if(alarmsList.get(i).getId() == id){
+				alarmsList.remove(i);
+			}
+		}
+	}
+
+	public List<AlarmController> getAlarmsList() {
+		return alarmsList;
+	}
+
+	public void setAlarmsList(List<AlarmController> alarmsList) {
+		this.alarmsList = alarmsList;
+	}
+
+	public static int getAlarmIdCounter() {
+		return alarmIdCounter;
+	}
+
+	public static void setAlarmIdCounter(int alarmIdCounter) {
+		AlarmManager.alarmIdCounter = alarmIdCounter;
+	}
+
+	public ClockDriver getClockDriver() {
+		return clockDriver;
+	}
+
+	public void setClockDriver(ClockDriver clockDriver) {
+		this.clockDriver = clockDriver;
+	}
+
+	public AlarmPanel getAlarmPanel() {
+		return alarmPanel;
+	}
+
+	public void setAlarmPanel(AlarmPanel alarmPanel) {
+		this.alarmPanel = alarmPanel;
 	}
 }
