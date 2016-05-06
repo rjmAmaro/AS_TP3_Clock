@@ -14,13 +14,15 @@ public class Application {
 		
 		clockDriver.addObserver(clockViewer);
 		
+		Thread t = new Thread(clockDriver);
+		t.start();
+		
 		AppFrame appFrame = new AppFrame(clockDriver);
 		appFrame.buildTimeoutPanel();
 		appFrame.buildClockPanel(clockViewer);
 		appFrame.buildAlarmPanel();
 		
-		Thread t = new Thread(clockDriver);
-		t.start();
+
 //		alarmManager = new AlarmManager(clockDriver);
 	}
 

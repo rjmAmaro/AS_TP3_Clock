@@ -2,7 +2,11 @@ package clock.state;
 
 import java.util.Date;
 
+import javax.swing.JTextField;
+
 import clock.ClockController;
+import driver.ClockDriver;
+import ui.clock.ClockPanel;
 
 public class AnalogState implements State{
 
@@ -17,6 +21,7 @@ public class AnalogState implements State{
 		
 		clockController.setState(clockController.getDigitalState());
 		
+
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import clock.state.AnalogState;
 import clock.state.DigitalState;
 import clock.state.State;
 import driver.ClockDriver;
+import ui.clock.ClockPanel;
 
 public class ClockController implements Observer {
 	
@@ -18,6 +19,10 @@ public class ClockController implements Observer {
 	private State digitalState;
 	private State state;
 	
+	private ClockDriver clockDriver;
+	private ClockPanel clockPanel;
+	
+	
 	public ClockController(){
 		analogState = new AnalogState(this);
 		digitalState = new DigitalState(this);
@@ -25,7 +30,9 @@ public class ClockController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		label.setText(((ClockDriver) o).getTime().toString());
+		this.clockDriver = (ClockDriver) o;
+		
+		label.setText(clockDriver.getTime().toString());
 	}
 	
 	
@@ -60,6 +67,22 @@ public class ClockController implements Observer {
 
 	public void setLabel(JLabel label) {
 		this.label = label;
+	}
+
+	public ClockDriver getClockDriver() {
+		return clockDriver;
+	}
+
+	public void setClockDriver(ClockDriver clockDriver) {
+		this.clockDriver = clockDriver;
+	}
+
+	public ClockPanel getClockPanel() {
+		return clockPanel;
+	}
+
+	public void setClockPanel(ClockPanel clockPanel) {
+		this.clockPanel = clockPanel;
 	}
 	
 	

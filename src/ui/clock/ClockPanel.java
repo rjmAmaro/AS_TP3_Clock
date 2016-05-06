@@ -25,6 +25,8 @@ public class ClockPanel extends JPanel {
 		this.add(this.time);
 		this.setVisible(true);
 		
+		
+		
 		editDateTimePanel = new EditDateTimePanel(this);
 		changeClockTypePanel = new ChangeClockTypePanel(this);
 		
@@ -36,7 +38,7 @@ public class ClockPanel extends JPanel {
 		this.clockDriver = clockDriver;
 		this.clockController = clockController;
 		this.clockController.setLabel(time);
-		
+
 		editDateTimePanel.build(clockController, clockDriver);
 		changeClockTypePanel.build(clockController, clockDriver);
 	}

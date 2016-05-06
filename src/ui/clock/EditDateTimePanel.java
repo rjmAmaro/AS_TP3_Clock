@@ -2,6 +2,8 @@ package ui.clock;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -33,7 +35,7 @@ public class EditDateTimePanel {
 	}
 	
 	public void build(ClockController clockController, ClockDriver clockDriver){
-
+		
 		this.clockController = clockController;
 		this.clockDriver = clockDriver;
 		
@@ -87,8 +89,24 @@ public class EditDateTimePanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println(timeSpinner);
-				System.out.println(datePicker);
+				System.out.println(datePicker.getModel().getYear());
+				System.out.println(datePicker.getModel().getMonth());
+				System.out.println(datePicker.getModel().getDay());
+				
+				Date o = (Date) timeSpinner.getValue();
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(o);  
+				
+				int hours = cal.get(Calendar.HOUR_OF_DAY);
+				int minutes = cal.get(Calendar.MINUTE);
+				int seconds = cal.get(Calendar.SECOND);
+				System.out.println(hours);
+				System.out.println(minutes);
+				System.out.println(seconds);
+				
+				
+
 				
 			}
 		});			

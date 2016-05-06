@@ -25,7 +25,6 @@ public class AppFrame extends JFrame {
 	
 	public AppFrame(ClockDriver clockDriver) {
 		this.clockDriver = clockDriver;
-		
 		this.setLayout(new GridLayout(1, 3));
 		this.setSize(WIDTH, HEIGHT);
 		this.setVisible(true);
