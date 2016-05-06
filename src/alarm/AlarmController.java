@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import alarm.state.EditedState;
+import alarm.state.EditingState;
 import alarm.state.FiredState;
 import alarm.state.State;
 import alarm.state.WaitingState;
@@ -23,7 +23,7 @@ public class AlarmController implements Observer {
 	
 	private State waitingState;
 	private State firedState;
-	private State editedState;
+	private State editingState;
 	
 	private State state;
 	
@@ -33,7 +33,7 @@ public class AlarmController implements Observer {
 		
 		this.waitingState = new WaitingState(this);
 		this.firedState = new FiredState(this);
-		this.editedState = new EditedState(this);
+		this.editingState = new EditingState(this);
 		
 		this.state = waitingState;
 	}
@@ -76,12 +76,12 @@ public class AlarmController implements Observer {
 		this.firedState = firedState;
 	}
 
-	public State getEditedState() {
-		return editedState;
+	public State getEditingState() {
+		return editingState;
 	}
 
-	public void setEditedState(State editedState) {
-		this.editedState = editedState;
+	public void setEditingState(State editingState) {
+		this.editingState = editingState;
 	}
 
 	public State getState() {

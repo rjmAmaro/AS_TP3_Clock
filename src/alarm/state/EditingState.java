@@ -4,11 +4,11 @@ import javax.swing.JPanel;
 
 import alarm.AlarmController;
 
-public class EditedState implements State{
+public class EditingState implements State{
 	
 private AlarmController alarmControler;
 	
-	public EditedState(AlarmController alarmControler){
+	public EditingState(AlarmController alarmControler){
 		this.alarmControler = alarmControler;
 	}
 

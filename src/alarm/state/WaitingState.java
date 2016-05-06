@@ -29,7 +29,7 @@ public class WaitingState implements State{
 	@Override
 	public void edit(JPanel p) {
 		System.out.println("ID: "+alarmController.getId());
-		this.alarmController.setState(this.alarmController.getEditedState());
+		this.alarmController.setState(this.alarmController.getEditingState());
 		AlarmPanel a= this.alarmController.getAlarmPanel();
 		a.changePanelToEditAlarm(this.alarmController, p);
 	}
