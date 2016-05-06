@@ -1,5 +1,6 @@
 package app;
 
+import alarm.AlarmManager;
 import clock.ClockController;
 import driver.ClockDriver;
 import timeout.TimeoutController;
@@ -16,6 +17,8 @@ public class Application {
 		TimeoutController timeoutController = new TimeoutController();
 		clockDriver.addObserver(timeoutController);
 		
+		AlarmManager alarmManager = new AlarmManager(clockDriver);
+		
 		Thread t = new Thread(clockDriver);
 		t.start();
 		
@@ -24,7 +27,7 @@ public class Application {
 			appFrame.createAndShowGUI();
 			appFrame.buildTimeoutPanel(timeoutController);
 			appFrame.buildClockPanel(clockController);
-			appFrame.buildAlarmPanel();
+			appFrame.buildAlarmPanel(alarmManager);
 		});
 	}
 

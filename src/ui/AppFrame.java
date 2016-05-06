@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
+import alarm.AlarmManager;
 import clock.ClockController;
 import driver.ClockDriver;
 import timeout.TimeoutController;
@@ -45,9 +46,9 @@ public class AppFrame extends JFrame {
 		this.add(this.clockPanel);
 	}
 	
-	public void buildAlarmPanel() {
+	public void buildAlarmPanel(AlarmManager alarmManager) {
 		this.alarmPanel = new AlarmPanel();
-		this.alarmPanel.build(this.clockDriver);
+		this.alarmPanel.build(this.clockDriver, alarmManager);
 		this.add(this.alarmPanel);
 	}
 	

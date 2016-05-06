@@ -30,8 +30,16 @@ public class AlarmManager implements Runnable {
 		this.alarmsList.add(alarm);
 		clockDriver.addObserver(alarm);
 		System.out.println("[AlarmManager] New alarm created for " + hour + "h" + minute);
+		printAlarms();
 	}
 	
+	private void printAlarms() {
+		for(int i=0; i<alarmsList.size(); i++){
+			System.out.println("ALARME Nº"+(i+1)+" : "+alarmsList.get(i).getAlarmTime());
+		}
+		
+	}
+
 	public void editAlarm(int id, int hour, int minute) {
 		Alarm alarm = null;
 		for(Alarm a : this.alarmsList) {
@@ -39,8 +47,7 @@ public class AlarmManager implements Runnable {
 				alarm = a;
 				break;
 			}
-		}
-		
+		}	
 		alarm.setAlarmTime(LocalTime.of(hour, minute));
 	}
 }
