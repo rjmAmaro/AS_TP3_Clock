@@ -30,11 +30,15 @@ public class AppFrame extends JFrame {
 		this.clockDriver = clockDriver;
 	}
 	
-	public void createAndShowGUI() {
+	public void createAndShowGUI(ClockController clockController, TimeoutController timeoutController, AlarmManager alarmManager) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setLayout(new GridLayout(1, 3));
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		
+		this.buildTimeoutPanel(timeoutController);
+		this.buildClockPanel(clockController);
+		this.buildAlarmPanel(alarmManager);
 		
 		this.pack();
 		this.setVisible(true);

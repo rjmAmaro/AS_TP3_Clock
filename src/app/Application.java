@@ -25,10 +25,7 @@ public class Application {
 		
 		javax.swing.SwingUtilities.invokeLater(() -> {
 			AppFrame appFrame = new AppFrame(clockDriver);
-			appFrame.createAndShowGUI();
-			appFrame.buildTimeoutPanel(timeoutController);
-			appFrame.buildClockPanel(clockController);
-			appFrame.buildAlarmPanel(alarmManager);
+			appFrame.createAndShowGUI(clockController, timeoutController, alarmManager);
 		});
 	}
 

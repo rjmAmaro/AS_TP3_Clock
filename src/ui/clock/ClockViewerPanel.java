@@ -1,5 +1,7 @@
 package ui.clock;
 
+import java.time.LocalDateTime;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -34,7 +36,7 @@ public class ClockViewerPanel extends JPanel {
 		
 		digitalClockPanel = new DigitalClockPanel();
 		clockViewer.add(digitalClockPanel);
-		initiateDigitalClock();
+//		initiateDigitalClock();
 		
 		buildChangeClockTypeButton();
 		changeViewerPanel.add(changeClockTypeButton);
@@ -62,11 +64,22 @@ public class ClockViewerPanel extends JPanel {
 	}
 	
 	private void initiateDigitalClock() {
-		digitalClockPanel.getDateTimeLabel().setText(clockController.getDateTime().toString());
+		LocalDateTime t = clockController.getDateTime();
+		String s = t.toString();
+//		digitalClockPanel.initiateDigitalClock(s);
+//		digitalClockPanel.initiateDigitalClock(clockController.getDateTime().toString());
 	}
 	
 	public void initiateAnalogClock(){
 
+	}
+
+	public DigitalClockPanel getDigitalClockPanel() {
+		return digitalClockPanel;
+	}
+
+	public void setDigitalClockPanel(DigitalClockPanel digitalClockPanel) {
+		this.digitalClockPanel = digitalClockPanel;
 	}
 
 }

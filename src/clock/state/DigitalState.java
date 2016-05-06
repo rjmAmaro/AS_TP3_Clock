@@ -1,6 +1,12 @@
 package clock.state;
 
+import java.time.LocalDateTime;
+
+import javax.swing.JLabel;
+
 import clock.ClockController;
+import ui.clock.ClockViewerPanel;
+import ui.clock.DigitalClockPanel;
 
 public class DigitalState implements State{
 	
@@ -25,9 +31,11 @@ public class DigitalState implements State{
 
 	@Override
 	public void refresh() {
-		//ClockPanel clockPanel = clockController.getClockPanel();
-		// TODO Auto-generated method stub
-		
+		ClockViewerPanel p = this.clockController.getClockPanel().getClockViewerPanel();
+		LocalDateTime dt = this.clockController.getDateTime();
+		DigitalClockPanel dp = p.getDigitalClockPanel();
+		JLabel dtl = dp.getDateTimeLabel();
+		dtl.setText(dt.toString());
 	}
 
 	public ClockController getClockController() {

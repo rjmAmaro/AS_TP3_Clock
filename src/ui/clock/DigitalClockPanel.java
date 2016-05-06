@@ -8,8 +8,13 @@ public class DigitalClockPanel extends JPanel {
 
 	public DigitalClockPanel() {
 		super();
+		dateTimeLabel = new JLabel();
 		dateTimeLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.add(dateTimeLabel);
+	}
+	
+	public void initiateDigitalClock(String textToShow) {
+		dateTimeLabel.setText(textToShow);
 	}
 
 	public JLabel getDateTimeLabel() {
@@ -19,5 +24,4 @@ public class DigitalClockPanel extends JPanel {
 	public void setDateTimeLabel(JLabel dateTimeLabel) {
 		this.dateTimeLabel = dateTimeLabel;
 	}
-	
 }
