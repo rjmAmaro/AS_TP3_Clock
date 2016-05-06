@@ -42,12 +42,10 @@ public class AlarmController implements Observer {
 	public void update(Observable o, Object arg) {
 		LocalTime timeNow = ((ClockDriver) o).getTime();
 		
-		if(timeNow.truncatedTo(ChronoUnit.MINUTES).equals(alarmTime.truncatedTo(ChronoUnit.MINUTES))){
+		if(timeNow.truncatedTo(ChronoUnit.SECONDS).equals(alarmTime.truncatedTo(ChronoUnit.SECONDS))){
 			System.out.println("ALARM");
 			this.state.fire();
-			//alarmPanel.turnOffAlarmButton(true, this);
-		}
-	
+		}	
 	}
 
 	public LocalTime getAlarmTime() {
@@ -113,5 +111,6 @@ public class AlarmController implements Observer {
 	public void setAlarmPanel(AlarmPanel alarmPanel) {
 		this.alarmPanel = alarmPanel;
 	}
+
 
 }

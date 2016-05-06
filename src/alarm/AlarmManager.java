@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import driver.ClockDriver;
+import ui.alarm.AlarmPanel;
 
 public class AlarmManager implements Runnable {
 	
@@ -12,6 +13,7 @@ public class AlarmManager implements Runnable {
 	
 	private ClockDriver clockDriver;
 	private List<AlarmController> alarmsList;
+	private AlarmPanel alarmPanel;
 	
 	
 	public AlarmManager(ClockDriver clockDriver) {
@@ -27,6 +29,7 @@ public class AlarmManager implements Runnable {
 	
 	public void createAlarm(int hour, int minute) {
 		AlarmController alarm = new AlarmController(alarmIdCounter++, hour, minute);
+		alarm.setAlarmPanel(alarmPanel);
 		this.alarmsList.add(alarm);
 		clockDriver.addObserver(alarm);
 		System.out.println("[AlarmManager] New alarm created for " + hour + "h" + minute);
@@ -65,5 +68,29 @@ public class AlarmManager implements Runnable {
 
 	public void setAlarmsList(List<AlarmController> alarmsList) {
 		this.alarmsList = alarmsList;
+	}
+
+	public static int getAlarmIdCounter() {
+		return alarmIdCounter;
+	}
+
+	public static void setAlarmIdCounter(int alarmIdCounter) {
+		AlarmManager.alarmIdCounter = alarmIdCounter;
+	}
+
+	public ClockDriver getClockDriver() {
+		return clockDriver;
+	}
+
+	public void setClockDriver(ClockDriver clockDriver) {
+		this.clockDriver = clockDriver;
+	}
+
+	public AlarmPanel getAlarmPanel() {
+		return alarmPanel;
+	}
+
+	public void setAlarmPanel(AlarmPanel alarmPanel) {
+		this.alarmPanel = alarmPanel;
 	}
 }

@@ -63,6 +63,7 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	public void build(ClockDriver clockDriver, AlarmManager alarmManager) {
 		this.clockDriver = clockDriver;	
 		this.alarmManager = alarmManager;
+		this.alarmManager.setAlarmPanel(this);
 	}
 	
 	private void buildUI(){
@@ -139,10 +140,10 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		});
 	}
 	
-	public void addAlarmPanel(AlarmManager alarm, int flag) {
+	public void addAlarmPanel(AlarmManager alarmManager, int flag) {
 			
 		if(flag != 0){
-			alarmList = alarm.getAlarmsList();		
+			alarmList = alarmManager.getAlarmsList();		
 				
 			for(int i=0; i<alarmList.size(); i++){
 				AlarmController iAlarm = alarmList.get(i);
@@ -197,7 +198,7 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		
 	}
 	
-	public void turnOffAlarmButton(boolean signal, AlarmController alarmcontroller){
+	public void addTurnOffAlarmButton(boolean signal, AlarmController alarmcontroller){
 		this.alarmNotice = signal;
 		
 		JPanel alarmPanel = new JPanel();
@@ -205,10 +206,14 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		alarmPanel.add(alarmOffButton);
 		this.alarmOffButton.setVisible(true);
 		
-		this.createButton.addActionListener(e -> {
+		this.alarmOffButton.addActionListener(e -> {
+			System.out.println("ID: "+alarmcontroller.getId());
 			this.alarmNotice = false;
 			alarmcontroller.getState().shut();
-			this.remove(alarmOffButton);
+			alarmPanel.remove(alarmOffButton);
+			alarmPanel.revalidate();
+			alarmPanel.repaint();
+			this.remove(alarmPanel);
 			this.revalidate();
 			this.repaint();
 		});
