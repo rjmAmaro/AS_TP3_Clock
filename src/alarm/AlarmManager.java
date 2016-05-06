@@ -11,12 +11,12 @@ public class AlarmManager implements Runnable {
 	private static int alarmIdCounter = 1;
 	
 	private ClockDriver clockDriver;
-	private List<Alarm> alarmsList;
+	private List<AlarmController> alarmsList;
 	
 	
 	public AlarmManager(ClockDriver clockDriver) {
 		this.clockDriver = clockDriver;
-		this.alarmsList = new ArrayList<Alarm>();
+		this.alarmsList = new ArrayList<AlarmController>();
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class AlarmManager implements Runnable {
 	}
 	
 	public void createAlarm(int hour, int minute) {
-		Alarm alarm = new Alarm(alarmIdCounter++, hour, minute);
+		AlarmController alarm = new AlarmController(alarmIdCounter++, hour, minute);
 		this.alarmsList.add(alarm);
 		clockDriver.addObserver(alarm);
 		System.out.println("[AlarmManager] New alarm created for " + hour + "h" + minute);
@@ -41,8 +41,8 @@ public class AlarmManager implements Runnable {
 	}
 
 	public void editAlarm(int id, int hour, int minute) {
-		Alarm alarm = null;
-		for(Alarm a : this.alarmsList) {
+		AlarmController alarm = null;
+		for(AlarmController a : this.alarmsList) {
 			if(a.getId() == id) {
 				alarm = a;
 				break;

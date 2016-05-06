@@ -20,11 +20,13 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 
 	private ClockDriver clockDriver;
 	private AlarmManager alarmManager;
+	private AlarmController alarmController;
 	
 	private JLabel title = new JLabel("Alarms ");
 	
 	private JPanel newAlarmPanel;
 	private JPanel alarmsList;
+	private JPanel p;
 	
 	private Map<Integer, JPanel> alarmsListPanels;
 	
@@ -61,8 +63,11 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		buildNewAlarmPanel();
 		this.add(newAlarmPanel);
 		
+		addAlarmPanel(alarmController);
 		alarmsList = new JPanel();
 		alarmsList.setLayout(new GridLayout(0, 1));
+		alarmsList.add(p);
+		this.add(alarmsList);
 	}
 	
 	private void buildNewAlarmPanel() {
@@ -115,29 +120,39 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	}
 	
 	public void addAlarmPanel(AlarmController alarm) {
-		JPanel p = new JPanel();
+		p = new JPanel();
 		p.setLayout(new GridLayout(1, 3));
-		p.setName(Integer.toString(alarm.getId()));
+		
+		if(alarm != null){
+			p.setName(Integer.toString(alarm.getId()));
 
-		JPanel t = new JPanel();
-		JPanel e = new JPanel();
-		JPanel d = new JPanel();
+			JPanel t = new JPanel();
+			JPanel e = new JPanel();
+			JPanel d = new JPanel();
+			
+			p.add(t);
+			p.add(e);
+			p.add(d);
 		
-		p.add(t);
-		p.add(e);
-		p.add(d);
+			JLabel text = new JLabel(alarm.getAlarmTime().toString());
+			t.add(text);
 		
-		JLabel text = new JLabel(alarm.getAlarmTime().toString());
-		t.add(text);
 		
-		JButton editB = new JButton("Edit");
-		e.add(editB);
-		editB.addActionListener(e1 -> {
-			alarm.getState().edit();
-		});
+			JButton editB = new JButton("Edit");
+			e.add(editB);
+			editB.addActionListener(e1 -> {
+				alarm.getState().edit();
+			});
+			
+			JButton deleteB = new JButton("Delete");
+			d.add(deleteB);
+			
+			t.setVisible(true);
+			e.setVisible(true);
+			d.setVisible(true);		
+		}
 		
-		JButton deleteB = new JButton("Delete");
-		d.add(deleteB);
+		p.setVisible(true);
 	}
 	
 	public void changePanelToEditAlarm(int alarmId) {

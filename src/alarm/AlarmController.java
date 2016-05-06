@@ -27,7 +27,8 @@ public class AlarmController implements Observer {
 	
 	private State state;
 	
-	public AlarmController(int hour, int minute) {
+	public AlarmController(int id, int hour, int minute) {
+		this.id = id;
 		this.alarmTime = LocalTime.of(hour, minute);
 		
 		this.waitingState = new WaitingState(this);
