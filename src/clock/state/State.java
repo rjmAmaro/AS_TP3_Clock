@@ -6,7 +6,7 @@ public interface State {
 	
 	public void digital();
 	public void analog();
-	public void edit(Date datetime);
+	public void edit(int year, int month, int dayOfMonth, int hour, int minute);
 	public void refresh();
 	
 	

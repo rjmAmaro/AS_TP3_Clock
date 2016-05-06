@@ -1,12 +1,6 @@
 package clock.state;
 
-import java.util.Date;
-
-import javax.swing.JTextField;
-
 import clock.ClockController;
-import driver.ClockDriver;
-import ui.clock.ClockPanel;
 
 public class AnalogState implements State{
 
@@ -18,21 +12,15 @@ public class AnalogState implements State{
 	
 	@Override
 	public void digital() {
-		
 		clockController.setState(clockController.getDigitalState());
-		
-
 	}
 
 	@Override
-	public void analog() {	
-		
-	}
+	public void analog() { }
 	
 	@Override
-	public void edit(Date datetime) {
-		// TODO Auto-generated method stub
-		
+	public void edit(int year, int month, int dayOfMonth, int hour, int minute) {
+		this.clockController.editCurrentDateTime(year, month, dayOfMonth, hour, minute);
 	}
 
 	@Override
@@ -40,8 +28,6 @@ public class AnalogState implements State{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 	public ClockController getClockController() {
 		return clockController;
