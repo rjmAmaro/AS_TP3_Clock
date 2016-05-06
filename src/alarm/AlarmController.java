@@ -45,8 +45,9 @@ public class AlarmController implements Observer {
 		if(timeNow.truncatedTo(ChronoUnit.MINUTES).equals(alarmTime.truncatedTo(ChronoUnit.MINUTES))){
 			System.out.println("ALARM");
 			this.state.fire();
+			//alarmPanel.turnOffAlarmButton(true, this);
 		}
-		
+	
 	}
 
 	public LocalTime getAlarmTime() {

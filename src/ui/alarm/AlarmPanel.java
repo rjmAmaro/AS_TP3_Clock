@@ -46,6 +46,9 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	private int minValor = 00;
 
 	private JButton createButton = new JButton("Create Alarm");
+	private JButton alarmOffButton = new JButton("Turn Off Alarm");
+	
+	private boolean alarmNotice = false;
 
 	public AlarmPanel() {
 		this.alarmsListPanels = new HashMap<Integer, JPanel>();
@@ -65,7 +68,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	private void buildUI(){
 		buildNewAlarmPanel();
 		this.add(newAlarmPanel);
-		
 		buildAlarmListPanel(0);
 	}
 	
@@ -126,8 +128,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	
 	public void buildCreateAlarmButton(){
 		this.add(createButton);
-//		this.createButton.setLocation(10, 400);
-		//this.createButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 		this.createButton.setVisible(true);
 		
 		this.createButton.addActionListener(e -> {
@@ -145,12 +145,10 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 			alarmList = alarm.getAlarmsList();		
 				
 			for(int i=0; i<alarmList.size(); i++){
-				
 				AlarmController iAlarm = alarmList.get(i);
 				
 				JPanel p = new JPanel();
-				p.setLayout(new GridLayout(1, 3));
-				
+				p.setLayout(new GridLayout(1, 3));	
 				
 				p.setName(Integer.toString(iAlarm.getId()));		
 				
@@ -194,10 +192,26 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 	
-	
 	public void changePanelToEditAlarm(int alarmId) {
 		JPanel p = alarmsListPanels.get(Integer.toString(alarmId));
 		
+	}
+	
+	public void turnOffAlarmButton(boolean signal, AlarmController alarmcontroller){
+		this.alarmNotice = signal;
+		
+		JPanel alarmPanel = new JPanel();
+		this.add(alarmPanel);
+		alarmPanel.add(alarmOffButton);
+		this.alarmOffButton.setVisible(true);
+		
+		this.createButton.addActionListener(e -> {
+			this.alarmNotice = false;
+			alarmcontroller.getState().shut();
+			this.remove(alarmOffButton);
+			this.revalidate();
+			this.repaint();
+		});
 	}
 	
 	/** Called when a field's "value" property changes. */
