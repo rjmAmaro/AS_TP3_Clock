@@ -21,9 +21,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	private ClockDriver clockDriver;
 	private AlarmManager alarmManager;
 	
-	private static final int BUTTON_WIDTH = 50;
-	private static final int BUTTON_HEIGHT = 20;
-	
 	private JLabel title = new JLabel("Alarms ");
 	
 	private JPanel newAlarmPanel;
@@ -79,7 +76,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		JPanel b = new JPanel();
 		b.setLayout(new GridLayout(2, 1));
 		b.add(horasLabel);
-		horasFormat = NumberFormat.getNumberInstance();
 		horasField = new JFormattedTextField(horasFormat);
 		horasField.setValue(horasValor);
 		b.add(horasField);
@@ -87,7 +83,6 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		JPanel c = new JPanel();
 		c.setLayout(new GridLayout(2, 1));
 		c.add(minLabel);
-		minFormat = NumberFormat.getNumberInstance();
 		minField = new JFormattedTextField(minFormat);
 		minField.setValue(minValor);
 		c.add(minField);
@@ -115,8 +110,7 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		this.createButton.setVisible(true);
 		
 		this.createButton.addActionListener(e -> {
-			System.out.println("Novo alarme: HORAS: "+horasValor+" MINUTOS: "+minValor);
-			this.alarmManager.createAlarm(horasValor, minValor);
+			this.alarmManager.createAlarm(Integer.parseInt(this.horasField.getText()), Integer.parseInt(this.minField.getText()));
 		});
 	}
 	
