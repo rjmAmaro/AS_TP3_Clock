@@ -40,7 +40,7 @@ public class AlarmController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		LocalTime timeNow = ((ClockDriver) o).getTime();
+		LocalTime timeNow = ((ClockDriver) o).getTime().toLocalTime();
 		
 		if(timeNow.truncatedTo(ChronoUnit.SECONDS).equals(alarmTime.truncatedTo(ChronoUnit.SECONDS))){
 			System.out.println("ALARM");
