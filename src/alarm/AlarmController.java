@@ -48,6 +48,10 @@ public class AlarmController implements Observer {
 		}	
 	}
 
+	public void editAlarm(int hora, int min) {	
+		this.setAlarmTime(LocalTime.of(hora, min));
+	}
+
 	public LocalTime getAlarmTime() {
 		return alarmTime;
 	}

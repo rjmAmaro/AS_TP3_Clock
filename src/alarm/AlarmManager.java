@@ -42,17 +42,6 @@ public class AlarmManager implements Runnable {
 		}
 		
 	}
-
-	public void editAlarm(int id, int hour, int minute) {
-		AlarmController alarm = null;
-		for(AlarmController a : this.alarmsList) {
-			if(a.getId() == id) {
-				alarm = a;
-				break;
-			}
-		}	
-		alarm.setAlarmTime(LocalTime.of(hour, minute));
-	}
 	
 	public void deleteAlarm(int id){
 		for(int i=0; i<alarmsList.size(); i++){

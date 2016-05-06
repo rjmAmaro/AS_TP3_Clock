@@ -36,11 +36,20 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 	private JLabel horasLabel = new JLabel("Hora do Alarme");
 	private JLabel minLabel = new JLabel("Minutos do Alarme");
 	
+	private JLabel edithorasLabel = new JLabel("Hora a Editar");
+	private JLabel editminLabel = new JLabel("Minutos a Editar");
+	
 	private JFormattedTextField horasField;
 	private JFormattedTextField minField;
 	
+	private JFormattedTextField editHorasField;
+	private JFormattedTextField editMinField;
+	
 	private NumberFormat horasFormat;
 	private NumberFormat minFormat;
+	
+	private NumberFormat editHorasFormat;
+	private NumberFormat editMinFormat;
 
 	private int horasValor = 00;
 	private int minValor = 00;
@@ -169,11 +178,11 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 				JLabel text = new JLabel(iAlarm.getAlarmTime().toString());
 				t.add(text);
 			
-				JButton editB = new JButton("Edit");
-				e.add(editB);
-				editB.addActionListener(e1 -> {
+				JButton editButton = new JButton("Edit");
+				e.add(editButton);
+				editButton.addActionListener(e1 -> {
 					System.out.println("ID ALARME PARA MODIFICAR: "+iAlarm.getId());
-					iAlarm.getState().edit();
+					iAlarm.getState().edit(p);
 				});
 				
 				JButton deleteB = new JButton("Delete");
@@ -193,8 +202,62 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 	
-	public void changePanelToEditAlarm(int alarmId) {
-		JPanel p = alarmsListPanels.get(Integer.toString(alarmId));
+	public void changePanelToEditAlarm(AlarmController alarmController2, JPanel p) {
+		JPanel editPanel = new JPanel();
+		this.add(editPanel);
+		
+		JPanel editHourPanel = new JPanel();
+		editHourPanel.setLayout(new GridLayout(2, 1));
+		editHourPanel.add(edithorasLabel);
+		editHorasField = new JFormattedTextField(editHorasFormat);
+		editHorasField.setValue(minValor);
+		editHourPanel.add(editHorasField);
+		
+		JPanel editMinutePanel = new JPanel();
+		editMinutePanel.setLayout(new GridLayout(2, 1));
+		editMinutePanel.add(editminLabel);
+		editMinField = new JFormattedTextField(editMinFormat);
+		editMinField.setValue(minValor);
+		editMinutePanel.add(editMinField);
+		
+		editPanel.add(editHourPanel);
+		editPanel.add(editMinutePanel);
+		
+		editPanel.setVisible(true);
+		editHourPanel.setVisible(true);
+		editMinutePanel.setVisible(true);
+		
+		JButton saveEditButton = new JButton("Save");
+		editPanel.add(saveEditButton);
+		JButton cancelEditButton = new JButton("Cancel");
+		editPanel.add(cancelEditButton);
+		
+		saveEditButton.addActionListener(e1 -> {
+			System.out.println("SAVE ALARM ID: "+alarmController2.getId());
+			alarmController2.getState().save(alarmController2, Integer.parseInt(this.editHorasField.getText()), Integer.parseInt(this.editMinField.getText()));
+			this.remove(alarmsListPanel);
+			this.revalidate();
+			this.repaint();
+			buildAlarmListPanel(1);
+			editPanel.remove(cancelEditButton);
+			editPanel.remove(saveEditButton);
+			editPanel.remove(editMinutePanel);
+			editPanel.remove(editHourPanel);
+			this.remove(editPanel);
+			this.revalidate();
+		});
+	
+		cancelEditButton.addActionListener(e1 -> {
+			System.out.println("CANCEL ALARM ID: "+alarmController2.getId());
+			alarmController2.getState().cancel();
+			editPanel.remove(cancelEditButton);
+			editPanel.remove(saveEditButton);
+			editPanel.remove(editMinutePanel);
+			editPanel.remove(editHourPanel);
+			this.remove(editPanel);
+			this.revalidate();
+		});
+		
 		
 	}
 	

@@ -1,5 +1,7 @@
 package alarm.state;
 
+import javax.swing.JPanel;
+
 import alarm.AlarmController;
 
 public class EditedState implements State{
@@ -20,10 +22,16 @@ private AlarmController alarmControler;
 	public void verify() { }
 
 	@Override
-	public void edit() { }
+	public void edit(JPanel p) { }
 
 	@Override
-	public void save(int id, int hora, int minuto) {
+	public void save(AlarmController alarmController2, int hora, int minuto) {
+		this.alarmControler.editAlarm(hora, minuto);
+		this.alarmControler.setState(this.alarmControler.getWaitingState());
+	}
+
+	@Override
+	public void cancel() {
 		this.alarmControler.setState(this.alarmControler.getWaitingState());
 	}
 
