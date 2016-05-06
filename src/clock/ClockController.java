@@ -14,8 +14,6 @@ import ui.clock.ClockPanel;
 
 public class ClockController implements Observer {
 	
-	JLabel label;
-	
 	private LocalDateTime dateTime;
 
 	private State analogState;
@@ -34,12 +32,13 @@ public class ClockController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		this.clockDriver = (ClockDriver) o;
-		this.setDateTime(LocalDateTime.from(((ClockDriver) o).getTime()));
+		this.dateTime = LocalDateTime.from(((ClockDriver) o).getTime());
 		this.getState().refresh();
-		
-		label.setText(clockDriver.getTime().toString());
 	}
 	
+	public void editCurrentDateTime(int year, int month, int dayOfMonth, int hour, int minute) {
+		this.clockDriver.editCurrentDateTime(year, month, dayOfMonth, hour, minute);
+	}
 	
 	public State getAnalogState() {
 		return analogState;
@@ -63,15 +62,6 @@ public class ClockController implements Observer {
 
 	public void setState(State state) {
 		this.state = state;
-	}
-
-	
-	public JLabel getLabel() {
-		return label;
-	}
-
-	public void setLabel(JLabel label) {
-		this.label = label;
 	}
 
 	public ClockDriver getClockDriver() {
