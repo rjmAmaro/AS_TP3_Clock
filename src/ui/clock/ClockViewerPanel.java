@@ -20,7 +20,8 @@ public class ClockViewerPanel extends JPanel {
 	private JPanel changeViewerPanel;			// painel com o botão para mudar o tipo de visualização (digital/analógico)
 	private DigitalClockPanel digitalClockPanel;// painel para mostrar o relógio em modo digital
 	private AnalogClockPanel analogClockPanel;	// painel para mostrar o relógio em modo analógico
-	private JButton changeClockTypeButton;
+	private JButton changeClockTypeToAnalogButton;
+	private JButton changeClockTypeToDigitalButton;
 	
 	public ClockViewerPanel(ClockDriver clockDriver, ClockController clockController, ClockPanel clockPanel) {
 		super();
@@ -38,41 +39,29 @@ public class ClockViewerPanel extends JPanel {
 		clockViewer = new JPanel();
 		this.add(clockViewer);
 		
-		buildChangeClockTypeButton();
-		changeViewerPanel.add(changeClockTypeButton);
+		buildChangeClockTypeButtons();
+		changeViewerPanel.add(changeClockTypeToAnalogButton);
 
 		analogClockPanel = new AnalogClockPanel();
-		clockViewer.setLayout(new GridLayout(1, 1));
-		clockViewer.add(analogClockPanel);
+//		clockViewer.setLayout(new GridLayout(1, 1));
+//		clockViewer.add(analogClockPanel);
 		
 		digitalClockPanel = new DigitalClockPanel();
 		clockViewer.add(digitalClockPanel);		
-		
-
-		
 	}
 	
-	public void buildChangeClockTypeButton(){
-		changeClockTypeButton = new JButton();
-		this.setChangeClockTypeButtonToAnalog();
-	}
-	
-	private void setChangeClockTypeButtonToAnalog() {
-		changeClockTypeButton.setText("Go to Analog Clock");
-		changeClockTypeButton.addActionListener(e -> {
+	public void buildChangeClockTypeButtons(){
+		changeClockTypeToAnalogButton = new JButton();
+		changeClockTypeToAnalogButton.setText("Go to Analog Clock");
+		changeClockTypeToAnalogButton.addActionListener(e -> {
 			clockController.getState().analog();
-			this.setChangeClockTypeButtonToDigital();
 		});
-	}
-	
-	private void setChangeClockTypeButtonToDigital() {
-		changeClockTypeButton.setText("Go to Digital Clock");
-		changeClockTypeButton.addActionListener(e -> {
+		
+		changeClockTypeToDigitalButton = new JButton();
+		changeClockTypeToDigitalButton.setText("Go to Digital Clock");
+		changeClockTypeToDigitalButton.addActionListener(e -> {
 			clockController.getState().digital();
-			this.setChangeClockTypeButtonToAnalog();
 		});
-		
-		
 	}
 	
 	public DigitalClockPanel getDigitalClockPanel() {
