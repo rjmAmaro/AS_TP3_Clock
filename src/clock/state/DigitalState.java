@@ -19,6 +19,7 @@ public class DigitalState implements State{
 	@Override
 	public void analog() {
 		clockController.setState(clockController.getAnalogState());
+		clockController.getClockPanel().getClockViewerPanel().changeClockToAnalog();
 	}
 
 	@Override

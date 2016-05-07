@@ -64,6 +64,22 @@ public class ClockViewerPanel extends JPanel {
 		});
 	}
 	
+	public void changeClockToAnalog() {
+		clockViewer.remove(digitalClockPanel);
+		clockViewer.add(analogClockPanel);
+		
+		changeViewerPanel.remove(changeClockTypeToAnalogButton);
+		changeViewerPanel.add(changeClockTypeToDigitalButton);
+	}
+	
+	public void changeClockToDigital() {
+		clockViewer.remove(analogClockPanel);
+		clockViewer.add(digitalClockPanel);	
+		
+		changeViewerPanel.remove(changeClockTypeToDigitalButton);
+		changeViewerPanel.add(changeClockTypeToAnalogButton);
+	}
+	
 	public DigitalClockPanel getDigitalClockPanel() {
 		return digitalClockPanel;
 	}
