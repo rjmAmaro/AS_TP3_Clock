@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.swing.JLabel;
 
 import clock.ClockController;
+import ui.clock.AnalogClockPanel;
 import ui.clock.ClockViewerPanel;
 import ui.clock.DigitalClockPanel;
 
@@ -34,9 +35,9 @@ public class AnalogState implements State{
 		
 		ClockViewerPanel clockViewerPanel = this.clockController.getClockPanel().getClockViewerPanel();
 		LocalDateTime dt = this.clockController.getDateTime();
-		//AnalogClockPanel dp = clockViewerPanel.getAnalogClockPanel();
-		//JLabel dtl = dp.getDateTimeLabel();
-		//dtl.setText(dt.toString());
+		AnalogClockPanel analogClockPanel = clockViewerPanel.getAnalogClockPanel();
+		analogClockPanel.rePaint(dt.getSecond(), dt.getMinute(), dt.getHour());
+		
 
 		
 	}

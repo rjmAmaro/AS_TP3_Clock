@@ -1,5 +1,7 @@
 package ui.clock;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.time.LocalDateTime;
 
 import javax.swing.JButton;
@@ -17,7 +19,7 @@ public class ClockViewerPanel extends JPanel {
 	private JPanel clockViewer;					// painel onde é mostrado o relógio em formato digital ou analógico
 	private JPanel changeViewerPanel;			// painel com o botão para mudar o tipo de visualização (digital/analógico)
 	private DigitalClockPanel digitalClockPanel;// painel para mostrar o relógio em modo digital
-//	private AnalogClockPanel analogClockPanel;	// painel para mostrar o relógio em modo analógico
+	private AnalogClockPanel analogClockPanel;	// painel para mostrar o relógio em modo analógico
 	private JButton changeClockTypeButton;
 	
 	public ClockViewerPanel(ClockDriver clockDriver, ClockController clockController, ClockPanel clockPanel) {
@@ -38,10 +40,16 @@ public class ClockViewerPanel extends JPanel {
 		
 		buildChangeClockTypeButton();
 		changeViewerPanel.add(changeClockTypeButton);
+
+		analogClockPanel = new AnalogClockPanel();
+		clockViewer.setLayout(new GridLayout(1, 1));
+		clockViewer.add(analogClockPanel);
 		
 		digitalClockPanel = new DigitalClockPanel();
 		clockViewer.add(digitalClockPanel);		
+		
 
+		
 	}
 	
 	public void buildChangeClockTypeButton(){
@@ -63,6 +71,8 @@ public class ClockViewerPanel extends JPanel {
 			clockController.getState().digital();
 			this.setChangeClockTypeButtonToAnalog();
 		});
+		
+		
 	}
 	
 	public DigitalClockPanel getDigitalClockPanel() {
@@ -72,5 +82,14 @@ public class ClockViewerPanel extends JPanel {
 	public void setDigitalClockPanel(DigitalClockPanel digitalClockPanel) {
 		this.digitalClockPanel = digitalClockPanel;
 	}
+	
+	public AnalogClockPanel getAnalogClockPanel() {
+		return analogClockPanel;
+	}
+
+	public void setAnalogClockPanel(AnalogClockPanel analogClockPanel) {
+		this.analogClockPanel = analogClockPanel;
+	}
+
 
 }
