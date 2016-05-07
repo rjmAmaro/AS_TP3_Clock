@@ -36,8 +36,8 @@ public class ClockDriver extends Observable implements Runnable {
 		}
 	}
 	
-	public void editCurrentDateTime(int year, int month, int dayOfMonth, int hour, int minute) {
-		this.time = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
+	public void editCurrentDateTime(int year, int month, int dayOfMonth, int hour, int minute, int second) {
+		this.time = LocalDateTime.of(year, month, dayOfMonth, hour, minute, second);
 		setChanged();
 		notifyObservers();
 	}

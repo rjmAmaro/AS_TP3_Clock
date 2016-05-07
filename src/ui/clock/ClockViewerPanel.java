@@ -50,14 +50,14 @@ public class ClockViewerPanel extends JPanel {
 		clockViewer.add(digitalClockPanel);		
 	}
 	
-	public void buildChangeClockTypeButtons(){
+	private void buildChangeClockTypeButtons(){
 		changeClockTypeToAnalogButton = new JButton();
+		changeClockTypeToDigitalButton = new JButton();
 		changeClockTypeToAnalogButton.setText("Go to Analog Clock");
 		changeClockTypeToAnalogButton.addActionListener(e -> {
 			clockController.getState().analog();
 		});
 		
-		changeClockTypeToDigitalButton = new JButton();
 		changeClockTypeToDigitalButton.setText("Go to Digital Clock");
 		changeClockTypeToDigitalButton.addActionListener(e -> {
 			clockController.getState().digital();
@@ -65,19 +65,33 @@ public class ClockViewerPanel extends JPanel {
 	}
 	
 	public void changeClockToAnalog() {
+
 		clockViewer.remove(digitalClockPanel);
 		clockViewer.add(analogClockPanel);
 		
 		changeViewerPanel.remove(changeClockTypeToAnalogButton);
 		changeViewerPanel.add(changeClockTypeToDigitalButton);
+		
+		changeViewerPanel.revalidate();
+		changeViewerPanel.repaint();
+
+		clockViewer.revalidate();
+		clockViewer.repaint();
 	}
 	
 	public void changeClockToDigital() {
+
 		clockViewer.remove(analogClockPanel);
 		clockViewer.add(digitalClockPanel);	
 		
 		changeViewerPanel.remove(changeClockTypeToDigitalButton);
 		changeViewerPanel.add(changeClockTypeToAnalogButton);
+		
+		changeViewerPanel.revalidate();
+		changeViewerPanel.repaint();
+
+		clockViewer.revalidate();
+		clockViewer.repaint();
 	}
 	
 	public DigitalClockPanel getDigitalClockPanel() {

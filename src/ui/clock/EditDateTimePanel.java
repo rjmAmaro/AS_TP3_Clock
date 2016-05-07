@@ -110,7 +110,7 @@ public class EditDateTimePanel extends JPanel {
 			second = cal.get(Calendar.SECOND);
 		
 			//why not second or why second
-			this.clockController.getState().edit(year, month, dayOfMonth, hour, minute);
+			this.clockController.getState().edit(year, month, dayOfMonth, hour, minute,second);
 		});			
 	}
 	

@@ -36,8 +36,8 @@ public class ClockController implements Observer {
 		this.getState().refresh();
 	}
 	
-	public void editCurrentDateTime(int year, int month, int dayOfMonth, int hour, int minute) {
-		this.clockDriver.editCurrentDateTime(year, month, dayOfMonth, hour, minute);
+	public void editCurrentDateTime(int year, int month, int dayOfMonth, int hour, int minute, int second) {
+		this.clockDriver.editCurrentDateTime(year, month, dayOfMonth, hour, minute, second);
 	}
 	
 	public State getAnalogState() {

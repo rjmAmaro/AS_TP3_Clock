@@ -26,8 +26,8 @@ public class DigitalState implements State{
 	public void digital() { }
 
 	@Override
-	public void edit(int year, int month, int dayOfMonth, int hour, int minute) {
-		this.clockController.editCurrentDateTime(year, month, dayOfMonth, hour, minute);
+	public void edit(int year, int month, int dayOfMonth, int hour, int minute, int second) {
+		this.clockController.editCurrentDateTime(year, month, dayOfMonth, hour, minute, second);
 	}
 
 	@Override
