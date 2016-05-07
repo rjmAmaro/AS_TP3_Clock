@@ -23,7 +23,7 @@ public class ClockPanel extends JPanel {
 	public ClockPanel() {
 		this.add(title);
 		
-		this.setLayout(new GridLayout(8, 1));
+		this.setLayout(new GridLayout(6, 1));
 
 		this.setVisible(true);
 	}

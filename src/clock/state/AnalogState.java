@@ -37,7 +37,7 @@ public class AnalogState implements State{
 		ClockViewerPanel clockViewerPanel = this.clockController.getClockPanel().getClockViewerPanel();
 		LocalDateTime dt = this.clockController.getDateTime();
 		AnalogClockPanel analogClockPanel = clockViewerPanel.getAnalogClockPanel();
-		analogClockPanel.rePaint(dt.getSecond(), dt.getMinute(), dt.getHour());
+		analogClockPanel.redraw(dt.getSecond(), dt.getMinute(), dt.getHour());
 		
 
 		

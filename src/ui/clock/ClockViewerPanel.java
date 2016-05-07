@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.time.LocalDateTime;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import clock.ClockController;
@@ -43,11 +44,13 @@ public class ClockViewerPanel extends JPanel {
 		changeViewerPanel.add(changeClockTypeToAnalogButton);
 
 		analogClockPanel = new AnalogClockPanel();
-//		clockViewer.setLayout(new GridLayout(1, 1));
-//		clockViewer.add(analogClockPanel);
+		clockViewer.add(analogClockPanel);
+		//clockViewer.repaint();
+		//clockViewer.revalidate();
 		
 		digitalClockPanel = new DigitalClockPanel();
 		clockViewer.add(digitalClockPanel);		
+	
 	}
 	
 	private void buildChangeClockTypeButtons(){
@@ -72,11 +75,14 @@ public class ClockViewerPanel extends JPanel {
 		changeViewerPanel.remove(changeClockTypeToAnalogButton);
 		changeViewerPanel.add(changeClockTypeToDigitalButton);
 		
+		
 		changeViewerPanel.revalidate();
 		changeViewerPanel.repaint();
 
 		clockViewer.revalidate();
 		clockViewer.repaint();
+		
+		
 	}
 	
 	public void changeClockToDigital() {
