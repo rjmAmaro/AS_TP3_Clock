@@ -31,9 +31,10 @@ public class DigitalState implements State{
 
 	@Override
 	public void refresh() {
-		ClockViewerPanel p = this.clockController.getClockPanel().getClockViewerPanel();
+		
+		ClockViewerPanel clockViewerPanel = this.clockController.getClockPanel().getClockViewerPanel();
 		LocalDateTime dt = this.clockController.getDateTime();
-		DigitalClockPanel dp = p.getDigitalClockPanel();
+		DigitalClockPanel dp = clockViewerPanel.getDigitalClockPanel();
 		JLabel dtl = dp.getDateTimeLabel();
 		dtl.setText(dt.toString());
 	}

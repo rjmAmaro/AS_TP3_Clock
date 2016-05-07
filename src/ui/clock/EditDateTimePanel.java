@@ -26,8 +26,6 @@ public class EditDateTimePanel extends JPanel {
 	private ClockDriver clockDriver;		// este provavelmente não vai ser preciso
 	private ClockController clockController;
 	
-	private JLabel subTitle;
-	
 	private JPanel datePanel;
 	private JPanel timePanel;
 	private JPanel buttonPanel;
@@ -39,7 +37,7 @@ public class EditDateTimePanel extends JPanel {
 	
 	EditDateTimePanel(ClockDriver clockDriver, ClockController clockController, ClockPanel clockPanel){
 		super();
-		this.setLayout(new GridLayout(4, 1));
+
 		this.clockDriver = clockDriver;
 		this.clockController = clockController;
 		this.clockPanel = clockPanel;
@@ -47,8 +45,6 @@ public class EditDateTimePanel extends JPanel {
 	}
 	
 	private void buildUI() {
-		subTitle = new JLabel("Edit Date-Time");
-		this.add(subTitle);
 		
 		buildDatePanel();
 		buildTimePanel();
@@ -57,9 +53,6 @@ public class EditDateTimePanel extends JPanel {
 	
 	private void buildDatePanel() {
 		datePanel = new JPanel();
-		// adicionar os elementos referentes à data ao datePanel
-		
-		// Adicionar código aqui
 		
 		UtilDateModel model = new UtilDateModel();
 		//model.setDate(20,04,2014);
@@ -73,16 +66,11 @@ public class EditDateTimePanel extends JPanel {
 		datePicker = new JDatePickerImpl(datePanelI, new DateComponentFormatter());
 		clockPanel.add(datePicker);
 		
-		// FIM
-		
 		this.add(datePanel);
 	}
 
 	private void buildTimePanel() {
 		timePanel = new JPanel();
-		// adicionar os elementos referentes ao tempo ao timePanel
-		
-		// Adicionar código aqui
 		
 		timeSpinner = new JSpinner( new SpinnerDateModel() );
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
@@ -90,9 +78,7 @@ public class EditDateTimePanel extends JPanel {
 		timeSpinner.setValue(new Date());
 		
 		clockPanel.add(timeSpinner);
-		
-		// FIM
-		
+				
 		this.add(timePanel);
 	}
 	
@@ -108,25 +94,22 @@ public class EditDateTimePanel extends JPanel {
 		
 		editDateTimeButton.addActionListener(e -> {
 			// código para o botão
-			int year = 0, month = 0, dayOfMonth = 0, hour = 0, minute = 0;
+			int year = 0, month = 0, dayOfMonth = 0, hour = 0, minute = 0, second = 0;
 			
-			System.out.println(datePicker.getModel().getYear());
-			System.out.println(datePicker.getModel().getMonth());
-			System.out.println(datePicker.getModel().getDay());
+			year = datePicker.getModel().getYear();			
+			month = datePicker.getModel().getMonth();
+			dayOfMonth = datePicker.getModel().getDay();
 			
 			Date o = (Date) timeSpinner.getValue();
 
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(o);  
+			cal.setTime(o);
 			
-			int hours = cal.get(Calendar.HOUR_OF_DAY);
-			int minutes = cal.get(Calendar.MINUTE);
-			int seconds = cal.get(Calendar.SECOND);
-			System.out.println(hours);
-			System.out.println(minutes);
-			System.out.println(seconds);
-			
-			// no final, invoca este método para editar a data-hora
+			hour = cal.get(Calendar.HOUR_OF_DAY);
+			minute = cal.get(Calendar.MINUTE);
+			second = cal.get(Calendar.SECOND);
+		
+			//why not second or why second
 			this.clockController.getState().edit(year, month, dayOfMonth, hour, minute);
 		});			
 	}

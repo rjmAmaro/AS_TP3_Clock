@@ -21,8 +21,10 @@ public class ClockPanel extends JPanel {
 	private JLabel time;
 	
 	public ClockPanel() {
-		this.setLayout(new GridLayout(4, 1));
 		this.add(title);
+		
+		this.setLayout(new GridLayout(8, 1));
+
 		this.setVisible(true);
 	}
 	
@@ -33,15 +35,21 @@ public class ClockPanel extends JPanel {
 		this.clockController = clockController;
 		this.clockController.setClockPanel(this);
 		
-		clockViewerPanel = new ClockViewerPanel(clockDriver, clockController, this);
+		// create Panel that allow the user to edit the time (to be showned)
 		editDateTimePanel = new EditDateTimePanel(clockDriver, clockController, this);
+		
+		// create Panel that show the user the clock (analog or digital)
+		clockViewerPanel = new ClockViewerPanel(clockDriver, clockController, this);
 		
 		buildUI();
 	}
 	
 	private void buildUI() {
-		this.add(clockViewerPanel);
+		
 		this.add(editDateTimePanel);
+		
+		this.add(clockViewerPanel);
+		
 	}
 
 	public ClockController getClockController() {

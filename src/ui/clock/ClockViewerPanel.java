@@ -29,17 +29,19 @@ public class ClockViewerPanel extends JPanel {
 	}
 	
 	private void buildUI() {
-		clockViewer = new JPanel();
-		this.add(clockViewer);
+		
 		changeViewerPanel = new JPanel();
 		this.add(changeViewerPanel);
 		
-		digitalClockPanel = new DigitalClockPanel();
-		clockViewer.add(digitalClockPanel);
-//		initiateDigitalClock();
+		clockViewer = new JPanel();
+		this.add(clockViewer);
 		
 		buildChangeClockTypeButton();
 		changeViewerPanel.add(changeClockTypeButton);
+		
+		digitalClockPanel = new DigitalClockPanel();
+		clockViewer.add(digitalClockPanel);		
+
 	}
 	
 	public void buildChangeClockTypeButton(){
@@ -63,17 +65,6 @@ public class ClockViewerPanel extends JPanel {
 		});
 	}
 	
-	private void initiateDigitalClock() {
-		LocalDateTime t = clockController.getDateTime();
-		String s = t.toString();
-//		digitalClockPanel.initiateDigitalClock(s);
-//		digitalClockPanel.initiateDigitalClock(clockController.getDateTime().toString());
-	}
-	
-	public void initiateAnalogClock(){
-
-	}
-
 	public DigitalClockPanel getDigitalClockPanel() {
 		return digitalClockPanel;
 	}

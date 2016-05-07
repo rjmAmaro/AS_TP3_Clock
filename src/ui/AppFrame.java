@@ -43,10 +43,19 @@ public class AppFrame extends JFrame {
 		this.pack();
 		this.setVisible(true);
 	}
+
+	public void buildTimeoutPanel(TimeoutController timeoutController) {
+		this.timeoutPanel = new TimeoutPanel();
+		this.timeoutPanel.build(timeoutController);
+		this.add(this.timeoutPanel);
+	}
 	
 	public void buildClockPanel(ClockController clockController) {
-		this.clockPanel = new ClockPanel();
-		this.clockPanel.build(this.clockDriver, clockController);
+		// In here only the title and the size will be build
+		this.clockPanel = new ClockPanel(); 
+		//Set the controller and driver to the Panel and build a first setup (one run)
+		this.clockPanel.build(this.clockDriver, clockController); 
+		
 		this.add(this.clockPanel);
 	}
 	
@@ -56,17 +65,12 @@ public class AppFrame extends JFrame {
 		this.add(this.alarmPanel);
 	}
 	
-	public void buildTimeoutPanel(TimeoutController timeoutController) {
-		this.timeoutPanel = new TimeoutPanel();
-		this.timeoutPanel.build(timeoutController);
-		this.add(this.timeoutPanel);
-	}
 
 	public ClockController getClockViewer() {
 		return clockController;
 	}
 
-	public void setClockViewer(ClockController clockViewer) {
-		this.clockController = clockViewer;
+	public void setClockViewer(ClockController clockController) {
+		this.clockController = clockController;
 	}
 }
