@@ -43,9 +43,10 @@ public class AlarmManager implements Runnable {
 		
 	}
 	
-	public void deleteAlarm(int id){
+	public void deleteAlarm(AlarmController iAlarm){
 		for(int i=0; i<alarmsList.size(); i++){
-			if(alarmsList.get(i).getId() == id){
+			if(alarmsList.get(i).getId() == iAlarm.getId()){
+				clockDriver.deleteObserver(alarmsList.get(i));
 				alarmsList.remove(i);
 			}
 		}

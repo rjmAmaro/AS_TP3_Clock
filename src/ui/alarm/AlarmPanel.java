@@ -189,7 +189,7 @@ public class AlarmPanel extends JPanel implements PropertyChangeListener {
 				d.add(deleteB);
 				deleteB.addActionListener(e2 -> {
 					System.out.println("ID ALARME PARA APAGAR: "+iAlarm.getId());
-					this.alarmManager.deleteAlarm(iAlarm.getId());
+					this.alarmManager.deleteAlarm(iAlarm);
 					this.remove(alarmsListPanel);
 					this.revalidate();
 					this.repaint();
